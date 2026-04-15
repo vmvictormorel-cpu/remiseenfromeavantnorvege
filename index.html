@@ -2,8 +2,8 @@
 <html lang="fr" class="bg-slate-50">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Objectif Norvège 🇳🇴</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <title>Norway OS 🇳🇴</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
@@ -11,7 +11,7 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['DM Sans'], condensed: ['Barlow Condensed'] },
-                    colors: { navy: '#0d1b2a', norway: '#e8542a' }
+                    colors: { navy: '#0d1b2a', norway: '#e8542a', camille: '#f472b6' }
                 }
             }
         }
@@ -21,151 +21,172 @@
         .tab-content.active { display: block; }
         .nav-btn.active { @apply border-norway text-white bg-white/10; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        input[type="checkbox"] { @apply w-5 h-5 accent-norway rounded; }
     </style>
 </head>
-<body class="font-sans text-slate-900 pb-24">
+<body class="font-sans text-slate-900 pb-24 selection:bg-norway/30">
 
-    <header class="bg-navy text-white p-6 relative overflow-hidden">
-        <div class="max-w-xl mx-auto relative z-10">
-            <div class="flex items-center gap-3 mb-2">
-                <span class="text-2xl">🇳🇴</span>
-                <h1 class="font-condensed text-3xl font-extrabold uppercase tracking-tight">Road to Norway</h1>
+    <header class="bg-navy text-white p-6 sticky top-0 z-[60] shadow-xl">
+        <div class="max-w-xl mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="font-condensed text-2xl font-extrabold uppercase tracking-tight italic">Norway OS</h1>
+                <p class="text-[9px] text-norway font-bold uppercase tracking-[0.2em]">Prep : 5j Appart + 2j Nomade</p>
             </div>
-            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-6 text-norway">Préparation Vanlife · Matos 12kg · Objectif 85kg</p>
-            
-            <div class="grid grid-cols-3 gap-2">
-                <div class="bg-white/5 border border-white/10 p-3 rounded-xl backdrop-blur-sm">
-                    <span class="block font-condensed text-xl text-norway">1 800</span>
-                    <span class="text-[9px] text-slate-500 uppercase font-bold tracking-tighter">kcal / jour</span>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-3 rounded-xl backdrop-blur-sm">
-                    <span class="block font-condensed text-xl text-norway">07:00</span>
-                    <span class="text-[9px] text-slate-500 uppercase font-bold tracking-tighter">Slot Sport</span>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-3 rounded-xl backdrop-blur-sm">
-                    <span class="block font-condensed text-xl text-norway">160g</span>
-                    <span class="text-[9px] text-slate-500 uppercase font-bold tracking-tighter">Protéines</span>
-                </div>
+            <div class="text-right flex flex-col items-end gap-1">
+                <select id="nb-personnes" onchange="updateAll()" class="bg-white/10 border border-white/20 rounded px-2 py-1 text-[10px] font-bold outline-none focus:ring-1 focus:ring-norway">
+                    <option value="1">SOLO (93kg)</option>
+                    <option value="2">DUO (+ CAMILLE)</option>
+                </select>
             </div>
         </div>
     </header>
 
-    <nav class="bg-slate-900 sticky top-0 z-50 flex overflow-x-auto no-scrollbar border-b border-white/10 shadow-lg">
-        <button onclick="showTab('sessions')" class="nav-btn active flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all">💪 Séances</button>
-        <button onclick="showTab('nutrition')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all">🥗 Nutrition</button>
-        <button onclick="showTab('vanlife')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all">🚐 Vanlife</button>
-        <button onclick="showTab('tracking')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all">📊 Suivi</button>
+    <nav class="bg-slate-900 sticky top-[76px] z-50 flex overflow-x-auto no-scrollbar border-b border-white/10">
+        <button onclick="showTab('sport')" class="nav-btn active flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">💪 Sport</button>
+        <button onclick="showTab('food')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">🥗 Food</button>
+        <button onclick="showTab('work')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">🚐 Work</button>
+        <button onclick="showTab('life')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-camille border-b-2 border-transparent transition-all whitespace-nowrap">✨ Camille</button>
+        <button onclick="showTab('stats')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">📊 Suivi</button>
     </nav>
 
     <main class="max-w-xl mx-auto p-4 space-y-6">
 
-        <section id="tab-sessions" class="tab-content active space-y-4">
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="bg-purple-600 p-4 text-white">
-                    <h3 class="font-condensed text-xl font-bold uppercase italic tracking-wide">Lundi & Vendredi — HIIT</h3>
-                </div>
-                <div class="p-4 space-y-3 text-sm">
-                    <p class="font-bold text-slate-500 text-[10px] uppercase">Lundi : Tapis / Vendredi : Vélo</p>
-                    <div class="flex justify-between border-b pb-1"><span>Échauffement</span><span class="font-bold uppercase text-[10px]">8 min</span></div>
-                    <div class="flex justify-between border-b pb-1 text-purple-600 font-bold"><span>HIIT (Max/Recup)</span><span>12 Rounds</span></div>
-                    <div class="flex justify-between"><span>Retour calme</span><span>10 min</span></div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="bg-blue-600 p-4 text-white">
-                    <h3 class="font-condensed text-xl font-bold uppercase italic tracking-wide">Mardi — TRX & Élastiques</h3>
-                </div>
-                <table class="w-full text-xs">
-                    <tr class="border-b"><td class="p-3 font-medium">TRX Row (Dos solide)</td><td class="p-3 text-right font-bold text-norway">12 reps</td></tr>
-                    <tr class="border-b"><td class="p-3 font-medium">TRX Chest Press</td><td class="p-3 text-right font-bold text-norway">12 reps</td></tr>
-                    <tr class="border-b text-blue-600 font-bold"><td class="p-3 italic">Gainage Planche</td><td class="p-3 text-right">30 sec</td></tr>
-                </table>
-            </div>
-
-            <div class="bg-white rounded-2xl border-2 border-norway shadow-md overflow-hidden">
-                <div class="bg-norway p-4 text-white flex justify-between items-center">
-                    <h3 class="font-condensed text-xl font-bold uppercase italic tracking-wide text-white">Samedi — Total Body 🎒</h3>
-                    <span class="text-[10px] bg-black/20 px-2 py-1 rounded font-bold uppercase">Spécial Norvège</span>
-                </div>
-                <div class="p-4 space-y-2 text-sm">
-                    <p class="text-[11px] text-slate-500 italic mb-2 leading-relaxed">Préparation spécifique pour porter le sac de 12kg en terrain accidenté.</p>
-                    <ul class="space-y-1">
-                        <li class="flex justify-between border-b border-slate-50 pb-1 italic"><span>Squat Sauté</span><strong>12 reps</strong></li>
-                        <li class="flex justify-between border-b border-slate-50 pb-1 italic"><span>Superman (Lombaires)</span><strong>15 reps</strong></li>
-                        <li class="flex justify-between"><span>Fente Bulgare</span><strong>10 / jambe</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="tab-nutrition" class="tab-content space-y-4">
-            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
-                <h4 class="font-bold text-sm uppercase mb-3 border-b pb-1">☀️ Petit-Déjeuner (450kcal)</h4>
-                <div class="text-[11px] space-y-2 leading-relaxed text-slate-600 italic font-medium">
-                    <p>• <strong>Option A :</strong> 3 œufs brouillés + 2 tranches pain complet + café</p>
-                    <p>• <strong>Option B :</strong> 200g fromage blanc 0% + 50g avoine + 1 banane</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
-                <h4 class="font-bold text-sm uppercase mb-3 border-b pb-1">🌞 Déjeuner (550kcal)</h4>
-                <div class="text-[11px] space-y-2 leading-relaxed text-slate-600 italic font-medium">
-                    <p>• <strong>Option A :</strong> 150g poulet + 200g légumes vapeur + 100g riz complet</p>
-                    <p>• <strong>Option B :</strong> Salade thon + haricots verts + 1 œuf dur</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
-                <h4 class="font-bold text-sm uppercase mb-3 border-b pb-1">🌙 Dîner (650kcal)</h4>
-                <div class="text-[11px] space-y-2 leading-relaxed text-slate-600 italic font-medium">
-                    <p>• <strong>Option A :</strong> 200g bœuf haché 5% + légumes sautés + 100g lentilles</p>
-                    <p>• <strong>Option B :</strong> Omelette 3 œufs + champignons + fromage blanc</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="tab-vanlife" class="tab-content space-y-5">
+        <section id="tab-sport" class="tab-content active space-y-5">
             
-            <div class="bg-indigo-900 text-white p-5 rounded-2xl shadow-xl">
-                <h3 class="font-condensed text-xl font-bold uppercase mb-2 italic">🆘 SOS Cervicalgies & Dos</h3>
-                <p class="text-[10px] uppercase font-bold tracking-widest text-indigo-300">Spécial longue route</p>
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="bg-purple-600 p-4 text-white">
+                    <h3 class="font-condensed text-xl font-bold uppercase italic leading-none">Lundi & Vendredi — HIIT & Muscu</h3>
+                    <p class="text-[9px] opacity-70 mt-1 uppercase font-bold">Slot 07:00-08:15 (1h15)</p>
+                </div>
+                <div class="p-4 space-y-4 text-sm">
+                    <div class="bg-slate-50 border-l-4 border-purple-400 p-3 rounded-r-xl">
+                        <span class="text-[10px] font-black text-purple-600 uppercase">1. Warm-up Tapis (15 min)</span>
+                        <p class="text-xs text-slate-500 mt-1 italic leading-relaxed font-medium">Marche rapide 6.5 km/h. Monte la pente de 2% toutes les 3 min jusqu'à 8%. Garde le dos droit.</p>
+                    </div>
+                    <div class="bg-slate-50 border-l-4 border-purple-400 p-3 rounded-r-xl">
+                        <span class="text-[10px] font-black text-purple-600 uppercase">2. HIIT Sprints (Tapis)</span>
+                        <p class="text-xs text-slate-500 mt-1 italic leading-relaxed font-medium text-norway">12 Rounds : 30s Vitesse Max / 30s Repos (saute sur les côtés).</p>
+                    </div>
+                    <div class="bg-slate-50 border-l-4 border-purple-400 p-3 rounded-r-xl">
+                        <span class="text-[10px] font-black text-purple-600 uppercase text-indigo-600">3. Bloc Muscu (Total Body)</span>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">TRX Row (15) + Pompes (15) + Squats sautés (12). 4 tours.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="space-y-3">
-                <div class="bg-white rounded-2xl border-l-4 border-indigo-500 p-4 shadow-sm">
-                    <h4 class="font-bold text-sm mb-2 flex items-center gap-2">🦴 Cervicales (Post-Conduite)</h4>
-                    <ul class="text-[11px] space-y-2 text-slate-600 italic leading-relaxed font-medium">
-                        <li><strong>Le "Menton-Poitrine" :</strong> Dos droit, amène le menton vers le sternum. Tiens 30s. Libère la nuque.</li>
-                        <li><strong>Inclinaison latérale :</strong> Oreille vers l'épaule (sans lever l'épaule). 30s de chaque côté.</li>
-                    </ul>
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="bg-blue-600 p-4 text-white">
+                    <h3 class="font-condensed text-xl font-bold uppercase italic leading-none">Mardi / Mercredi / Jeudi — Home Trainer</h3>
+                    <p class="text-[9px] opacity-70 mt-1 uppercase font-bold">Endurance & Mobilité</p>
                 </div>
-
-                <div class="bg-white rounded-2xl border-l-4 border-emerald-500 p-4 shadow-sm">
-                    <h4 class="font-bold text-sm mb-2 flex items-center gap-2">🧘 Étirements Tapis (Full Body)</h4>
-                    <ul class="text-[11px] space-y-2 text-slate-600 italic leading-relaxed font-medium">
-                        <li><strong>Chien tête en bas :</strong> Pour étirer toute la chaîne postérieure (dos + jambes) après le trek.</li>
-                        <li><strong>L'Enfant (Child Pose) :</strong> Idéal dans le van pour relaxer les lombaires avant de dormir.</li>
-                        <li><strong>Posture du Pigeon :</strong> Ouvre les hanches fermées par la position assise prolongée en van.</li>
-                    </ul>
+                <div class="p-4 space-y-3">
+                    <div class="flex items-center gap-3 p-3 bg-blue-50 rounded-xl">
+                        <span class="text-xl">🚲</span>
+                        <div class="text-xs leading-relaxed text-slate-600">
+                            <strong>45-60 min HT :</strong> Zone 2 stable (125 BPM). <br><span class="text-[10px] uppercase font-bold text-blue-500">Pas de marche nécessaire ce jour-là.</span>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <div class="bg-slate-800 text-white rounded-2xl p-5 shadow-sm">
-                    <h4 class="font-condensed text-lg font-bold uppercase mb-3 text-norway">🚐 Coaching en Van</h4>
-                    <ul class="text-[11px] space-y-3 opacity-90 leading-relaxed italic font-medium">
-                        <li>📍 <strong>Spot Check :</strong> Utilise les tables de pique-nique pour tes pompes ou tes fentes bulgares.</li>
-                        <li>🎒 <strong>Matos :</strong> Ton sac photo de 12kg est ton meilleur haltère. Goblet Squats et Rowing avec le sac.</li>
-                        <li>❄️ <strong>Récup :</strong> Les lacs norvégiens sont parfaits pour une séance de cryothérapie (bain froid) naturelle !</li>
-                    </ul>
+            <div class="bg-emerald-600 rounded-2xl p-5 text-white shadow-lg">
+                <h3 class="font-condensed text-xl font-bold uppercase italic mb-3">Samedi & Dimanche — Outdoor</h3>
+                <div class="space-y-3">
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm">
+                        <p class="font-bold text-sm">Marche "Sac de 12kg" (1h30)</p>
+                        <p class="text-[10px] opacity-80 mt-1 italic">Simulation Norvège : Pieds larges, respiration nasale, sac photo chargé.</p>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm">
+                        <p class="font-bold text-sm">Stretching Sol (20 min)</p>
+                        <p class="text-[10px] opacity-80 mt-1 italic">Focus Psoas et Ischios pour libérer le bas du dos.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="tab-tracking" class="tab-content space-y-4">
+        <section id="tab-food" class="tab-content space-y-6">
+            
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+                <h3 class="font-condensed text-lg uppercase font-bold text-norway mb-4 border-b pb-2 italic">📅 Planning de la semaine</h3>
+                <div id="meal-planner" class="space-y-4">
+                    </div>
+            </div>
+
+            <div class="bg-slate-900 text-white rounded-2xl p-5 shadow-xl">
+                <h3 class="font-condensed text-xl font-bold uppercase mb-4 text-norway italic">🛒 Liste de courses dynamique</h3>
+                <div id="shopping-items" class="grid grid-cols-1 gap-3 text-xs opacity-90">
+                    </div>
+            </div>
+        </section>
+
+        <section id="tab-work" class="tab-content space-y-4">
+            <div class="bg-indigo-900 text-white p-6 rounded-2xl shadow-xl">
+                <h3 class="font-condensed text-2xl font-bold uppercase italic tracking-tighter">Office & Van Recovery</h3>
+                <p class="text-[10px] text-indigo-300 font-bold uppercase tracking-widest mt-1">Lutter contre la posture figée</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3">
+                <div class="bg-white p-4 rounded-2xl border-l-4 border-indigo-500 shadow-sm flex gap-4">
+                    <div class="text-2xl">💻</div>
+                    <div>
+                        <h4 class="font-bold text-xs uppercase italic">Rappel Sédentarité</h4>
+                        <p class="text-[11px] text-slate-500 mt-1 italic leading-relaxed font-medium text-slate-600"><strong>Debout toutes les 45 min.</strong> <br>Fais 10 élévations sur pointes de pieds pour relancer le retour veineux.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border-l-4 border-emerald-500 shadow-sm flex gap-4">
+                    <div class="text-2xl">🚐</div>
+                    <div>
+                        <h4 class="font-bold text-xs uppercase italic">Cervicales Van</h4>
+                        <p class="text-[11px] text-slate-500 mt-1 italic leading-relaxed font-medium text-slate-600">Auto-grandissement : pousse le sommet du crâne vers le plafond du van. Baisse les épaules.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-life" class="tab-content space-y-4">
+            <div class="bg-camille text-white p-6 rounded-2xl shadow-lg relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="font-condensed text-2xl font-bold uppercase italic tracking-tighter">Cuisine & Détente</h3>
+                    <p class="text-[10px] opacity-80 uppercase font-bold tracking-[0.2em] mt-1">Le cadre de vie avec Camille</p>
+                </div>
+                <div class="absolute -right-4 -bottom-4 text-6xl opacity-20">✨</div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-camille/20 shadow-sm space-y-4">
+                <div class="flex gap-4">
+                    <span class="text-2xl">🥣</span>
+                    <div>
+                        <h4 class="font-bold text-sm uppercase text-camille">La cuisine du soir</h4>
+                        <p class="text-[11px] text-slate-600 italic leading-relaxed">Préparation des repas pour le lendemain. On double les doses pour gagner du temps. Camille gère les légumes, je gère les protéines.</p>
+                    </div>
+                </div>
+                <hr class="border-camille/10">
+                <div class="flex gap-4">
+                    <span class="text-2xl">🕯️</span>
+                    <div>
+                        <h4 class="font-bold text-sm uppercase text-camille">Déconnexion totale</h4>
+                        <p class="text-[11px] text-slate-600 italic leading-relaxed font-medium text-slate-600 italic leading-relaxed">21h30 : Fin des écrans. Étirements légers ensemble sur le tapis au salon pour libérer les tensions du travail.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-stats" class="tab-content space-y-4">
             <div id="tracking-list" class="space-y-3"></div>
         </section>
 
     </main>
 
     <script>
+        // --- CONFIG & DONNÉES ---
+        const REPAS_DATA = [
+            "Saumon Patate Douce", "Poulet Riz Brocolis", "Omelette Féta Épinards", 
+            "Dinde Lentilles", "Bowl Avoine Banane", "Salade Thon Œufs",
+            "Cabillaud Ratatouille", "Wok Tofu Soja", "Steak 5% Courgettes", "Crevettes Quinoa"
+        ];
+        const JOURS = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+
+        // --- NAVIGATION ---
         function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -174,56 +195,75 @@
             window.scrollTo(0,0);
         }
 
-        const trackingList = document.getElementById('tracking-list');
-        const weeks = [
-            {id: 1, date: '14-20 Avr'}, {id: 2, date: '21-27 Avr'},
-            {id: 3, date: '28-04 Mai'}, {id: 4, date: '05-11 Mai'},
-            {id: 5, date: '12-18 Mai'}, {id: 6, date: '19-25 Mai'},
-            {id: 7, date: '26-01 Juin'}, {id: 8, date: '02-05 Juin'}
-        ];
+        // --- CORE FUNCTIONS ---
+        function updateAll() {
+            const n = document.getElementById('nb-personnes').value;
+            localStorage.setItem('config-pers', n);
+            renderPlanner();
+            renderShopping();
+            renderTracking();
+        }
 
-        weeks.forEach(w => {
-            const div = document.createElement('div');
-            div.className = "bg-white p-4 rounded-2xl border border-slate-200 flex flex-col gap-3 shadow-sm";
-            const savedWeight = localStorage.getItem(`weight-w${w.id}`) || '';
+        function renderPlanner() {
+            const container = document.getElementById('meal-planner');
+            let html = "";
+            JOURS.forEach(j => {
+                const savedValue = localStorage.getItem(`plan-${j}`) || "0";
+                html += `
+                    <div class="flex flex-col gap-1 italic">
+                        <label class="text-[10px] font-bold uppercase text-slate-400">${j}</label>
+                        <select onchange="saveMeal('${j}', this.value)" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2 text-xs font-bold outline-none focus:border-norway">
+                            ${REPAS_DATA.map((r, i) => `<option value="${i}" ${savedValue == i ? 'selected' : ''}>${r}</option>`).join('')}
+                        </select>
+                    </div>`;
+            });
+            container.innerHTML = html;
+        }
 
-            div.innerHTML = `
-                <div class="flex justify-between items-center">
-                    <span class="font-bold text-sm tracking-tight">Semaine ${w.id} <span class="text-[9px] text-slate-400 font-bold ml-1 uppercase">${w.date}</span></span>
-                    <input type="text" value="${savedWeight}" placeholder="KG" oninput="saveWeight(${w.id}, this.value)"
-                           class="w-12 text-right border-b border-slate-100 focus:outline-none focus:border-norway font-bold text-xs">
-                </div>
-                <div class="flex justify-between gap-1">
-                    ${['L','M','M','V','S'].map(d => {
-                        const checkId = `w${w.id}-${d}`;
-                        const isChecked = localStorage.getItem(checkId) === 'true';
-                        return `
-                            <div class="day-check flex-1 h-8 flex items-center justify-center rounded-lg border border-slate-100 text-[10px] font-bold cursor-pointer transition-all ${isChecked ? 'bg-norway text-white shadow-inner' : 'bg-slate-50 text-slate-400'}" 
-                                 data-id="${checkId}" onclick="toggleDay(this)">${d}</div>
-                        `;
-                    }).join('')}
-                </div>
-            `;
-            trackingList.appendChild(div);
-        });
+        function saveMeal(jour, val) {
+            localStorage.setItem(`plan-${jour}`, val);
+            renderShopping();
+        }
 
-        function toggleDay(el) {
-            const id = el.getAttribute('data-id');
-            const isSelected = el.classList.contains('bg-norway');
-            if (isSelected) {
-                el.classList.replace('bg-norway', 'bg-slate-50');
-                el.classList.replace('text-white', 'text-slate-400');
-                localStorage.setItem(id, 'false');
-            } else {
-                el.classList.replace('bg-slate-50', 'bg-norway');
-                el.classList.replace('text-slate-400', 'text-white');
-                localStorage.setItem(id, 'true');
+        function renderShopping() {
+            const n = localStorage.getItem('config-pers') || 1;
+            const container = document.getElementById('shopping-items');
+            const baseItems = ["Légumes Verts", "Protéines (Viande/Poisson)", "Féculents (Riz/Pates)", "Fruits", "Fromage Blanc", "Œufs"];
+            
+            container.innerHTML = baseItems.map(it => `
+                <label class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10 italic">
+                    <input type="checkbox" class="w-4 h-4">
+                    <span class="flex-1 font-medium">${it} <span class="text-norway font-bold underline">x ${n}</span></span>
+                </label>
+            `).join('');
+        }
+
+        function renderTracking() {
+            const container = document.getElementById('tracking-list');
+            container.innerHTML = "";
+            for(let i=1; i<=8; i++) {
+                const isChecked = localStorage.getItem(`week-${i}`) === 'true';
+                const div = document.createElement('div');
+                div.className = `bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center ${isChecked ? 'opacity-50' : ''}`;
+                div.innerHTML = `
+                    <span class="font-bold text-xs uppercase italic">Semaine ${i}</span>
+                    <input type="checkbox" onchange="saveWeek(${i}, this.checked)" ${isChecked ? 'checked' : ''} class="w-6 h-6 accent-emerald-500">
+                `;
+                container.appendChild(div);
             }
         }
 
-        function saveWeight(weekId, value) {
-            localStorage.setItem(`weight-w${weekId}`, value);
+        function saveWeek(i, val) {
+            localStorage.setItem(`week-${i}`, val);
+            renderTracking();
         }
+
+        // --- INITIALISATION ---
+        window.onload = () => {
+            const savedPers = localStorage.getItem('config-pers');
+            if(savedPers) document.getElementById('nb-personnes').value = savedPers;
+            updateAll();
+        };
     </script>
 </body>
 </html>
