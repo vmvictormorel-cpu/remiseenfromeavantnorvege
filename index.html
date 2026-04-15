@@ -1,275 +1,211 @@
 <!DOCTYPE html>
-<html lang="fr" class="bg-slate-50 text-slate-900">
+<html lang="fr" class="bg-slate-50">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Programme Norvège 🇳🇴</title>
+    <title>Objectif Norvège 🇳🇴</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['DM Sans', 'sans-serif'],
-                        condensed: ['Barlow Condensed', 'sans-serif'],
-                    },
-                    colors: {
-                        navy: '#0d1b2a',
-                        'norway-orange': '#e8542a',
-                    }
+                    fontFamily: { sans: ['DM Sans'], condensed: ['Barlow Condensed'] },
+                    colors: { navy: '#0d1b2a', norway: '#e8542a' }
                 }
             }
         }
     </script>
     <style>
-        /* Styles spécifiques pour les onglets et les chevrons non gérables nativement en utilitaire pur sans plugin */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .nav-btn.active { @apply border-norway-orange text-white; }
-        .chevron.open { transform: rotate(90deg); }
+        .nav-btn.active { @apply border-norway text-white bg-white/10; }
     </style>
 </head>
-<body class="font-sans antialiased pb-12">
+<body class="font-sans text-slate-900 pb-20">
 
-    <header class="bg-navy text-white p-8 relative overflow-hidden">
-        <div class="absolute -top-12 -right-12 w-48 h-48 bg-norway-orange opacity-10 rounded-full"></div>
-        <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-600 opacity-10 rounded-full"></div>
-
-        <div class="relative z-10 max-w-3xl mx-auto">
-            <span class="text-3xl mb-2 block">🇳🇴</span>
-            <h1 class="font-condensed text-4xl font-extrabold uppercase tracking-tight leading-none">Programme Norvège</h1>
-            <p class="text-slate-400 text-sm mt-2 font-medium">Road trip en van · 12 kg matos photo · Départ 6 juin</p>
+    <header class="bg-navy text-white p-6 relative overflow-hidden">
+        <div class="max-w-xl mx-auto relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="text-2xl">🇳🇴</span>
+                <h1 class="font-condensed text-3xl font-extrabold uppercase tracking-tight">Programme Norvège</h1>
+            </div>
+            <p class="text-slate-400 text-xs font-medium mb-6 uppercase tracking-widest">Départ 6 Juin · 12kg Photo · 85kg Cible</p>
             
-            <div class="flex flex-wrap gap-3 mt-6">
-                <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex-1 min-w-[120px]">
-                    <span class="block font-condensed text-2xl font-bold text-norway-orange">93 → 85 kg</span>
-                    <span class="text-[10px] uppercase tracking-wider text-slate-400">Objectif poids</span>
+            <div class="grid grid-cols-3 gap-2">
+                <div class="bg-white/5 border border-white/10 p-3 rounded-xl">
+                    <span class="block font-condensed text-xl text-norway">1 800</span>
+                    <span class="text-[9px] text-slate-500 uppercase font-bold">kcal / jour</span>
                 </div>
-                <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex-1 min-w-[120px]">
-                    <span class="block font-condensed text-2xl font-bold text-norway-orange">7,5 sem</span>
-                    <span class="text-[10px] uppercase tracking-wider text-slate-400">Durée</span>
+                <div class="bg-white/5 border border-white/10 p-3 rounded-xl">
+                    <span class="block font-condensed text-xl text-norway">5 x</span>
+                    <span class="text-[9px] text-slate-500 uppercase font-bold">Séances / sem</span>
                 </div>
-                <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex-1 min-w-[120px]">
-                    <span class="block font-condensed text-2xl font-bold text-norway-orange">5×/sem</span>
-                    <span class="text-[10px] uppercase tracking-wider text-slate-400">Séances</span>
+                <div class="bg-white/5 border border-white/10 p-3 rounded-xl">
+                    <span class="block font-condensed text-xl text-norway">160g</span>
+                    <span class="text-[9px] text-slate-500 uppercase font-bold">Protéines</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <nav class="bg-slate-900 sticky top-0 z-50 flex overflow-x-auto border-b-2 border-slate-800 no-scrollbar">
-        <button onclick="showTab('overview', this)" class="nav-btn active px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">📋 Plan</button>
-        <button onclick="showTab('sessions', this)" class="nav-btn px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">💪 Séances</button>
-        <button onclick="showTab('exercises', this)" class="nav-btn px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">🏋️ Détails</button>
-        <button onclick="showTab('nutrition', this)" class="nav-btn px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">🥗 Nutrition</button>
-        <button onclick="showTab('tracking', this)" class="nav-btn px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">📊 Suivi</button>
+    <nav class="bg-slate-900 sticky top-0 z-50 flex overflow-x-auto no-scrollbar border-b border-white/10">
+        <button onclick="showTab('sessions')" class="nav-btn active flex-1 px-5 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent">Séances</button>
+        <button onclick="showTab('nutrition')" class="nav-btn flex-1 px-5 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent">Nutrition</button>
+        <button onclick="showTab('tracking')" class="nav-btn flex-1 px-5 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent">Suivi</button>
     </nav>
 
-    <main class="max-w-3xl mx-auto px-4 mt-8">
+    <main class="max-w-xl mx-auto p-4 space-y-6">
 
-        <section id="tab-overview" class="tab-content active space-y-6">
-            <div class="border-l-4 border-norway-orange pl-4">
-                <h2 class="font-condensed text-3xl font-bold uppercase">Vue d'ensemble</h2>
-                <p class="text-slate-500 text-sm italic">3 phases pour une condition physique optimale le 6 juin.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Phase 1 (Sem 1-2)</span>
-                    <h3 class="font-condensed text-lg font-bold mt-1">🔥 Remise en route</h3>
-                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">Retrouver les sensations. 3 tours. HIIT modéré.</p>
+        <section id="tab-sessions" class="tab-content active space-y-4">
+            
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-purple-600 p-4 text-white">
+                    <h3 class="font-condensed text-xl font-bold uppercase">Lundi — HIIT Tapis de course</h3>
+                    <p class="text-[10px] opacity-80 font-bold uppercase tracking-wider">Focus : Brûle-graisses & Explosivité</p>
                 </div>
-                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm ring-2 ring-norway-orange/20">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Phase 2 (Sem 3-6)</span>
-                    <h3 class="font-condensed text-lg font-bold mt-1 text-norway-orange text-lg">💪 Perte active</h3>
-                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">4 tours. 14 rounds HIIT. Focus déficit calorique.</p>
-                </div>
-                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm font-bold">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter text-norway-orange font-extrabold">Phase 3 (S7+)</span>
-                    <h3 class="font-condensed text-lg font-bold mt-1">🔄 Affûtage</h3>
-                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">Stabilisation et maintien de l'intensité avant départ.</p>
+                <div class="p-4 space-y-3">
+                    <div class="flex justify-between text-sm border-b pb-2"><span>Échauffement marche (5.5km/h, pente 2%)</span><span class="font-bold">8 min</span></div>
+                    <div class="flex justify-between text-sm border-b pb-2 text-purple-600 font-bold"><span>HIIT : Sprint (Max) / Marche (Récup)</span><span>10-14 rounds</span></div>
+                    <div class="flex justify-between text-sm border-b pb-2"><span>Jogging lent (allure confort)</span><span class="font-bold">10 min</span></div>
+                    <div class="flex justify-between text-sm"><span>Retour au calme + étirements</span><span class="font-bold">12 min</span></div>
+                    <div class="bg-purple-50 p-3 rounded-lg text-xs italic text-purple-700 mt-2">
+                        <strong>Sprint :</strong> Vitesse où tu ne peux plus parler. Adapte à ton niveau du jour.
+                    </div>
                 </div>
             </div>
 
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-                <table class="w-full text-left text-sm border-collapse">
-                    <thead class="bg-slate-50 border-b border-slate-200">
-                        <tr>
-                            <th class="p-4 font-bold text-slate-400 text-[10px] uppercase">Jour</th>
-                            <th class="p-4 font-bold text-slate-400 text-[10px] uppercase">Focus</th>
-                            <th class="p-4 font-bold text-slate-400 text-[10px] uppercase">Durée</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        <tr>
-                            <td class="p-4 font-bold text-purple-600">Lundi</td>
-                            <td class="p-4">HIIT Tapis (Sprints)</td>
-                            <td class="p-4 text-slate-400 text-xs text-bold uppercase font-bold">1h</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-bold text-blue-600">Mardi</td>
-                            <td class="p-4">TRX + Haut du corps</td>
-                            <td class="p-4 text-slate-400 text-xs text-bold uppercase font-bold">1h</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-bold text-emerald-600 font-extrabold">Mercredi</td>
-                            <td class="p-4 italic">Zone 2 Vélo (Brûle-graisses)</td>
-                            <td class="p-4 text-slate-400 text-xs text-bold uppercase font-bold">1h</td>
-                        </tr>
-                        <tr class="bg-slate-50/50 text-slate-400 italic">
-                            <td class="p-4">Jeudi</td>
-                            <td class="p-4">Repos actif (Marche)</td>
-                            <td class="p-4 text-xs">—</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-bold text-purple-600">Vendredi</td>
-                            <td class="p-4">HIIT Vélo (Tabata)</td>
-                            <td class="p-4 text-slate-400 text-xs text-bold uppercase font-bold">1h</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-bold text-orange-600">Samedi</td>
-                            <td class="p-4 font-bold italic">Total Body Special Norvège</td>
-                            <td class="p-4 text-slate-400 text-xs text-bold uppercase font-bold">1h</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-blue-600 p-4 text-white">
+                    <h3 class="font-condensed text-xl font-bold uppercase">Mardi — Circuit TRX + Élastiques</h3>
+                    <p class="text-[10px] opacity-80 font-bold uppercase tracking-wider">Haut du corps & Gainage · 4 Tours</p>
+                </div>
+                <div class="p-0 text-sm">
+                    <table class="w-full">
+                        <tr class="border-b bg-slate-50"><th class="p-3 text-left text-[9px] uppercase">Exercice</th><th class="p-3 text-center text-[9px] uppercase">Reps</th><th class="p-3 text-right text-[9px] uppercase">Repos</th></tr>
+                        <tr class="border-b"><td class="p-3">TRX Row (Dos)</td><td class="p-3 text-center font-bold text-norway">12</td><td class="p-3 text-right">0s</td></tr>
+                        <tr class="border-b"><td class="p-3">TRX Chest Press (Pecs)</td><td class="p-3 text-center font-bold text-norway">12</td><td class="p-3 text-right">0s</td></tr>
+                        <tr class="border-b"><td class="p-3">Curl Biceps Élastique</td><td class="p-3 text-center font-bold text-norway">15</td><td class="p-3 text-right">0s</td></tr>
+                        <tr class="border-b text-blue-600 font-bold"><td class="p-3">Planche (Gainage)</td><td class="p-3 text-center">30s</td><td class="p-3 text-right">60s</td></tr>
+                    </table>
+                </div>
             </div>
-        </section>
 
-        <section id="tab-sessions" class="tab-content space-y-4">
-            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-                <div class="bg-purple-50 p-4 flex items-center gap-4 border-b border-purple-100">
-                    <span class="text-2xl bg-white w-10 h-10 flex items-center justify-center rounded-xl shadow-sm">🏃</span>
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden text-sm">
+                <div class="bg-emerald-600 p-4 text-white flex justify-between items-center">
                     <div>
-                        <h3 class="font-condensed font-bold text-lg leading-none">Lundi — HIIT Tapis</h3>
-                        <p class="text-[10px] text-purple-600 uppercase font-bold mt-1">Dépense Max · 40s/80s</p>
+                        <h3 class="font-condensed text-xl font-bold uppercase">Mercredi — Zone 2 Vélo</h3>
+                        <p class="text-[10px] opacity-80 font-bold uppercase tracking-wider">Endurance fondamentale</p>
                     </div>
+                    <span class="text-2xl italic font-bold">125 BPM</span>
                 </div>
-                <div class="p-4 space-y-3 text-sm">
-                    <div class="flex justify-between border-b border-slate-50 pb-2">
-                        <span class="font-medium">Échauffement marche</span>
-                        <span class="text-slate-500">8 min (5.5km/h)</span>
-                    </div>
-                    <div class="flex justify-between border-b border-slate-50 pb-2">
-                        <span class="font-bold text-purple-700">HIIT — Bloc Principal</span>
-                        <span class="text-slate-500 font-bold uppercase text-[11px] font-extrabold">12 Rounds</span>
-                    </div>
-                    <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 text-xs text-amber-800 italic">
-                        <strong>Note :</strong> Le sprint doit être une intensité où la parole est impossible.
-                    </div>
+                <div class="p-4 space-y-2">
+                    <p><strong>Objectif :</strong> Pédaler 45 min à intensité constante. Tu dois pouvoir parler (laborieusement) mais ne pas être essoufflé.</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-                <div class="bg-blue-50 p-4 flex items-center gap-4 border-b border-blue-100">
-                    <span class="text-2xl bg-white w-10 h-10 flex items-center justify-center rounded-xl shadow-sm">💪</span>
-                    <div>
-                        <h3 class="font-condensed font-bold text-lg leading-none">Mardi — Circuit TRX</h3>
-                        <p class="text-[10px] text-blue-600 uppercase font-bold mt-1">Renforcement & Gainage</p>
-                    </div>
+            <div class="bg-white rounded-2xl border-2 border-norway shadow-md overflow-hidden text-sm">
+                <div class="bg-norway p-4 text-white">
+                    <h3 class="font-condensed text-xl font-bold uppercase text-white">Samedi — Circuit Total Body 🎒</h3>
+                    <p class="text-[10px] opacity-80 font-bold uppercase tracking-wider text-white">Spécial Norvège · 4 Tours</p>
                 </div>
-                <table class="w-full text-xs">
-                    <tbody class="divide-y divide-slate-100">
-                        <tr>
-                            <td class="p-3 font-bold">TRX Row (Dos)</td>
-                            <td class="p-3 text-right text-norway-orange font-bold text-base">12 reps</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-bold">TRX Chest Press</td>
-                            <td class="p-3 text-right text-norway-orange font-bold text-base">12 reps</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="p-0">
+                    <table class="w-full">
+                        <tr class="border-b"><td class="p-3">Squat Sauté (Explosivité)</td><td class="p-3 text-center font-bold">12</td></tr>
+                        <tr class="border-b bg-orange-50/50"><td class="p-3 font-bold text-norway">Superman (Bas du dos - Sac photo)</td><td class="p-3 text-center font-bold italic">12</td></tr>
+                        <tr class="border-b"><td class="p-3">Fente Bulgare (Jambes)</td><td class="p-3 text-center font-bold text-norway">10 /jambe</td></tr>
+                        <tr class="border-b"><td class="p-3">Mountain Climbers</td><td class="p-3 text-center font-bold">20 tot</td></tr>
+                    </table>
+                </div>
             </div>
         </section>
 
-        <section id="tab-nutrition" class="tab-content space-y-6">
-            <div class="grid grid-cols-3 gap-3">
-                <div class="bg-navy text-white p-4 rounded-2xl text-center">
-                    <span class="font-condensed text-3xl font-bold">1800</span>
-                    <span class="block text-[10px] text-slate-400 uppercase">kcal/jour</span>
-                </div>
-                <div class="bg-white border border-slate-200 p-4 rounded-2xl text-center">
-                    <span class="font-condensed text-3xl font-bold text-blue-600">160g</span>
-                    <span class="block text-[10px] text-slate-400 uppercase">Protéines</span>
-                </div>
-                <div class="bg-white border border-slate-200 p-4 rounded-2xl text-center">
-                    <span class="font-condensed text-3xl font-bold text-emerald-600">~1kg</span>
-                    <span class="block text-[10px] text-slate-400 uppercase">/semaine</span>
-                </div>
+        <section id="tab-nutrition" class="tab-content space-y-4">
+            
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-900 leading-relaxed">
+                <strong>Règle d'or :</strong> Protéines à chaque repas, légumes à volonté, pas d'alcool en semaine, 2.5L d'eau. 1 repas "Cheat" le dimanche midi.
             </div>
 
-            <div class="space-y-3">
-                <div class="bg-white p-4 rounded-2xl border border-slate-200">
-                    <div class="flex justify-between items-center mb-2">
-                        <h4 class="font-bold text-sm">🍳 Petit-Déjeuner</h4>
-                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded-lg font-bold">450 KCAL</span>
-                    </div>
-                    <p class="text-xs text-slate-500 leading-relaxed">3 œufs brouillés + 2 tranches pain complet + café noir. Focus protéines post-entraînement.</p>
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 space-y-3">
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h4 class="font-bold text-sm uppercase">☀️ Petit-Déjeuner (post-séance)</h4>
+                    <span class="text-xs font-bold text-slate-400">~450 kcal</span>
                 </div>
+                <ul class="text-xs space-y-2 text-slate-600">
+                    <li><strong>Option A :</strong> 3 œufs brouillés + 2 tranches pain complet + café noir</li>
+                    <li><strong>Option B :</strong> 200g fromage blanc 0% + 50g flocons d'avoine + 1 banane</li>
+                    <li><strong>Option C :</strong> 2 œufs + 150g jambon blanc + 1 yaourt nature</li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 space-y-3">
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h4 class="font-bold text-sm uppercase">🌞 Déjeuner</h4>
+                    <span class="text-xs font-bold text-slate-400">~550 kcal</span>
                 </div>
+                <ul class="text-xs space-y-2 text-slate-600">
+                    <li><strong>Option A :</strong> 150g blanc poulet + 200g légumes vapeur + 100g riz complet</li>
+                    <li><strong>Option B :</strong> Salade thon + haricots verts + 1 œuf dur</li>
+                    <li><strong>Option C :</strong> 200g saumon + brocolis + 100g patate douce</li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 space-y-3">
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h4 class="font-bold text-sm uppercase">🌙 Dîner</h4>
+                    <span class="text-xs font-bold text-slate-400">~650 kcal</span>
+                </div>
+                <ul class="text-xs space-y-2 text-slate-600">
+                    <li><strong>Option A :</strong> 200g bœuf haché 5% + légumes sautés + 100g lentilles</li>
+                    <li><strong>Option B :</strong> 200g cabillaud + ratatouille + 100g quinoa</li>
+                    <li><strong>Option C :</strong> Omelette 3 œufs + champignons + fromage blanc</li>
+                </ul>
+            </div>
         </section>
 
-        <section id="tab-tracking" class="tab-content">
-            <div id="weeks-container-tailwind" class="space-y-3">
+        <section id="tab-tracking" class="tab-content space-y-4">
+            <div id="tracking-list" class="space-y-3 text-sm">
                 </div>
         </section>
 
     </main>
 
     <script>
-        function showTab(tabId, btn) {
-            // Masquer tous les contenus
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Retirer la classe active de tous les boutons
-            document.querySelectorAll('.nav-btn').forEach(b => {
-                b.classList.remove('active');
-            });
-
-            // Afficher le contenu sélectionné
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('tab-' + tabId).classList.add('active');
-            
-            // Activer le bouton cliqué
-            btn.classList.add('active');
+            event.currentTarget.classList.add('active');
         }
 
-        // Script pour générer les semaines de suivi (version Tailwind)
-        const trackContainer = document.getElementById('weeks-container-tailwind');
-        const weekData = [
-            {n:'1', date:'14 avr', weight:'93kg'},
-            {n:'2', date:'21 avr', weight:''},
-            {n:'3', date:'28 avr', weight:''},
-            {n:'4', date:'05 mai', weight:''},
+        // Générateur de suivi
+        const trackingList = document.getElementById('tracking-list');
+        const weeks = [
+            {id: 1, date: '14-20 Avr', weight: '93kg'},
+            {id: 2, date: '21-27 Avr', weight: ''},
+            {id: 3, date: '28-04 Mai', weight: ''},
+            {id: 4, date: '05-11 Mai', weight: ''},
+            {id: 5, date: '12-18 Mai', weight: ''},
+            {id: 6, date: '19-25 Mai', weight: ''},
+            {id: 7, date: '26-01 Juin', weight: ''},
+            {id: 8, date: '02-05 Juin', weight: ''},
         ];
 
-        weekData.forEach(w => {
-            const card = document.createElement('div');
-            card.className = "bg-white p-4 rounded-2xl border border-slate-200 shadow-sm";
-            card.innerHTML = `
-                <div class="flex justify-between items-center mb-4">
-                    <div>
-                        <span class="text-xs font-bold text-slate-400 uppercase">Semaine ${w.n}</span>
-                        <p class="text-[10px] text-slate-400 uppercase italic font-bold leading-none">${w.date}</p>
-                    </div>
-                    <input type="text" placeholder="${w.weight || 'Poids'}" class="w-20 text-right font-condensed font-bold text-lg border-b border-slate-200 focus:outline-none focus:border-norway-orange">
+        weeks.forEach(w => {
+            const div = document.createElement('div');
+            div.className = "bg-white p-4 rounded-2xl border border-slate-200 flex flex-col gap-3 shadow-sm";
+            div.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="font-bold">Semaine ${w.id} <span class="text-[10px] text-slate-400 font-normal ml-2">${w.date}</span></span>
+                    <input type="text" placeholder="${w.weight || 'Poids'}" class="w-16 text-right border-b focus:outline-none focus:border-norway font-bold">
                 </div>
-                <div class="flex gap-2">
+                <div class="flex justify-between gap-1">
                     ${['L','M','M','V','S'].map(d => `
-                        <label class="flex-1">
-                            <input type="checkbox" class="hidden peer">
-                            <div class="text-center py-2 rounded-lg bg-slate-50 text-[10px] font-bold text-slate-400 peer-checked:bg-norway-orange peer-checked:text-white transition-all cursor-pointer">
-                                ${d}
-                            </div>
-                        </label>
+                        <div class="flex-1 h-8 flex items-center justify-center rounded-lg bg-slate-50 border border-slate-100 text-[10px] font-bold text-slate-400 cursor-pointer hover:bg-slate-100" onclick="this.classList.toggle('bg-norway'); this.classList.toggle('text-white')">${d}</div>
                     `).join('')}
                 </div>
             `;
-            trackContainer.appendChild(card);
+            trackingList.appendChild(div);
         });
     </script>
 </body>
