@@ -21,6 +21,299 @@
         .tab-content.active { display: block; }
         .nav-btn.active { @apply border-norway text-white bg-white/10; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        .schema-box { @apply bg-slate-900 text-emerald-400 p-3 rounded-lg font-mono text-[10px] leading-tight my-2 border border-slate-700 shadow-inner; }
+        input[type="checkbox"] { @apply w-5 h-5 accent-norway rounded cursor-pointer; }
+    </style>
+</head>
+<body class="font-sans text-slate-900 pb-24">
+
+    <header class="bg-navy text-white p-6 sticky top-0 z-[60] shadow-xl">
+        <div class="max-w-xl mx-auto">
+            <h1 class="font-condensed text-2xl font-extrabold uppercase tracking-tight italic">Norway OS</h1>
+            <p class="text-[9px] text-norway font-bold uppercase tracking-[0.2em]">Système de vie & Préparation</p>
+        </div>
+    </header>
+
+    <nav class="bg-slate-900 sticky top-[76px] z-50 flex overflow-x-auto no-scrollbar border-b border-white/10 shadow-lg">
+        <button onclick="showTab('sport')" class="nav-btn active flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400">Sport</button>
+        <button onclick="showTab('food')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400">Food</button>
+        <button onclick="showTab('work')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400">Work</button>
+        <button onclick="showTab('life')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-camille">Camille</button>
+        <button onclick="showTab('stats')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400">Suivi</button>
+    </nav>
+
+    <main class="max-w-xl mx-auto p-4 space-y-6">
+
+        <section id="tab-sport" class="tab-content active space-y-5">
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="bg-purple-600 p-4 text-white uppercase font-condensed font-bold italic text-sm">Lundi / Vendredi : HIIT Tapis</div>
+                <div class="p-4 space-y-3">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Échauffement : 15 min marche (Pente 5% - 8%)</p>
+                    <p class="text-xs">Sprints : 12 rounds (30s ON / 30s OFF).</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="bg-blue-600 p-4 text-white uppercase font-condensed font-bold italic text-sm">Mardi/Mercredi/Jeudi : Variété Appart</div>
+                <div class="p-4 space-y-4 text-sm divide-y divide-slate-100">
+                    <div class="pb-3 text-[11px]"><strong>Mardi :</strong> Home Trainer (45 min Zone 2).</div>
+                    <div class="py-3 text-[11px]"><strong>Mercredi :</strong> TRX & Gainage (Rowing + Pompes + Planche).</div>
+                    <div class="pt-3 text-[11px]"><strong>Jeudi :</strong> Marche inclinée (45 min à 10% de pente).</div>
+                </div>
+            </div>
+
+            <div class="bg-emerald-600 rounded-2xl p-5 text-white shadow-sm">
+                <h3 class="font-condensed text-xl font-bold uppercase italic mb-3">Samedi & Dimanche : Mode Nomade</h3>
+                <div class="space-y-4">
+                    <div class="bg-white/10 p-3 rounded-xl border border-white/20">
+                        <p class="font-bold text-xs uppercase tracking-tighter">Running Souple (25 min)</p>
+                        <p class="text-[10px] opacity-80 mt-1 italic">N'importe où, juste pour l'endurance.</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-xs mb-2 uppercase tracking-tighter italic">Mobilité Sol</p>
+                        <div class="schema-box">
+                            [ SCHÉMA : LE PIGEON ]<br>
+                            &nbsp;_O_&nbsp;&nbsp;&nbsp;&lt;-- Buste droit<br>
+                            &nbsp;_/|_&nbsp;&nbsp;&lt;-- Jambe avant 90°<br>
+                            |____&nbsp;&nbsp;&lt;-- Jambe arrière tendue
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-food" class="tab-content space-y-5">
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+                <div class="flex justify-between items-center mb-4 border-b pb-2">
+                    <h3 class="font-condensed text-xl font-bold uppercase text-norway italic">Planner Hebdo</h3>
+                    <select id="nb-personnes" onchange="updateFood()" class="bg-slate-100 border border-slate-200 rounded px-2 py-1 text-[10px] font-black outline-none">
+                        <option value="1">1 PERSONNE</option>
+                        <option value="2">2 PERSONNES</option>
+                    </select>
+                </div>
+                
+                <div id="meal-planner" class="space-y-4">
+                    </div>
+            </div>
+
+            <div class="bg-slate-900 text-white p-5 rounded-2xl shadow-xl">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-condensed text-lg uppercase font-bold text-norway italic tracking-widest italic">Liste de courses auto</h3>
+                    <span class="text-[9px] bg-white/10 px-2 py-1 rounded">Basée sur tes menus</span>
+                </div>
+                <div id="shopping-list-auto" class="grid grid-cols-1 gap-2 text-[11px] font-medium opacity-90">
+                    </div>
+            </div>
+        </section>
+
+        <section id="tab-work" class="tab-content space-y-4">
+            <div class="bg-indigo-900 text-white p-6 rounded-2xl shadow-xl italic font-condensed text-xl uppercase italic">Office & Van Recovery</div>
+            
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex gap-4">
+                    <div class="text-2xl">🖐️</div>
+                    <div class="text-[11px] leading-relaxed">
+                        <strong class="uppercase text-indigo-600 block mb-1 tracking-tighter">Stop Tunnel Carpien</strong>
+                        Étire tes poignets toutes les 2h. Bras tendu, tire tes doigts vers le bas. Indispensable après 5h de code ou de route.
+                    </div>
+                </div>
+                <div class="flex gap-4 border-t pt-4">
+                    <div class="text-2xl">👀</div>
+                    <div class="text-[11px] leading-relaxed italic text-slate-600">
+                        <strong class="uppercase text-indigo-600 block mb-1 tracking-tighter italic">Règle 20-20-20</strong>
+                        En van ou au bureau, toutes les 20 min, regarde à 20 pieds (6m) pendant 20 sec pour reposer tes yeux de l'écran ou du pare-brise.
+                    </div>
+                </div>
+                <div class="flex gap-4 border-t pt-4">
+                    <div class="text-2xl">⚡</div>
+                    <div class="text-[11px] leading-relaxed">
+                        <strong class="uppercase text-indigo-600 block mb-1 tracking-tighter">Squats invisibles</strong>
+                        Dès que tu passes un appel ou que tu attends que le café chauffe en van : fais 20 squats. Zéro excuse.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-life" class="tab-content space-y-4">
+            <div class="bg-camille text-white p-5 rounded-2xl shadow-lg uppercase font-condensed text-xl italic font-bold">Cuisine & Détente Camille</div>
+            
+            <div class="bg-white p-5 rounded-2xl border border-camille/20 shadow-sm space-y-5">
+                <div>
+                    <h4 class="font-bold text-[11px] uppercase text-camille mb-2 italic">Yoga du soir (Trainsweateat)</h4>
+                    <div class="aspect-video bg-slate-100 rounded-xl flex items-center justify-center border-2 border-dashed border-camille/30">
+                        <span class="text-xs text-camille font-bold uppercase italic">Lancer la vidéo sur l'App TSE</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-2 italic text-center">Focus : Relaxation profonde & Ouverture des hanches.</p>
+                </div>
+                
+                <div class="bg-camille/5 p-4 rounded-xl space-y-3">
+                    <h4 class="font-bold text-[11px] uppercase text-camille italic">Tips Vie à Deux</h4>
+                    <p class="text-[10px] leading-relaxed italic text-slate-600 italic">✨ <strong>Le Débrief Norvège :</strong> Pendant qu'on cuisine, on se projette sur les spots photo. Ça motive pour le sport.</p>
+                    <p class="text-[10px] leading-relaxed italic text-slate-600 italic">✨ <strong>Rituel Tisane :</strong> Pas de téléphone après 22h. Juste le calme avant le réveil à 6h30.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-stats" class="tab-content space-y-5">
+            <div class="bg-slate-800 text-white p-5 rounded-2xl italic font-condensed text-xl uppercase italic">Suivi de Progression</div>
+            <div id="tracking-weekly" class="space-y-4">
+                </div>
+        </section>
+
+    </main>
+
+    <script>
+        // NAVIGATION
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        const JOURS = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+        const MEALS_DB = {
+            0: { n: "Saumon / Patate Douce", ing: ["Pavé Saumon", "Patate Douce", "Brocolis"] },
+            1: { n: "Poulet / Riz Complet", ing: ["Blanc Poulet", "Riz Complet", "Haricots Verts"] },
+            2: { n: "Omelette / Féta", ing: ["Oeufs", "Féta", "Epinards"] },
+            3: { n: "Dinde / Quinoa", ing: ["Dinde", "Quinoa", "Poivrons"] },
+            4: { n: "Bowl Avoine", ing: ["Flocons Avoine", "Banane", "Beurre Cacahuète"] },
+            5: { n: "Cabillaud / Ratatouille", ing: ["Cabillaud", "Légumes Ratatouille", "Riz"] },
+            6: { n: "Steak 5% / Courgettes", ing: ["Steak 5%", "Courgettes", "Lentilles"] }
+        };
+
+        function updateFood() {
+            const n = document.getElementById('nb-personnes').value;
+            localStorage.setItem('config-pers', n);
+            
+            // Render Planner
+            let htmlP = "";
+            JOURS.forEach(j => {
+                const svD = localStorage.getItem(`lunch-${j}`) || 0;
+                const svN = localStorage.getItem(`diner-${j}`) || 1;
+                htmlP += `
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                    <span class="text-[10px] font-black uppercase text-slate-400 border-b w-full block mb-2 font-bold italic italic">${j}</span>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[8px] font-bold block mb-1">DÉJEUNER</label>
+                            <select onchange="saveMeal('lunch','${j}', this.value)" class="w-full text-[9px] font-bold p-1 rounded bg-white border border-slate-200">
+                                ${Object.keys(MEALS_DB).map(k => `<option value="${k}" ${svD==k?'selected':''}>${MEALS_DB[k].n}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[8px] font-bold block mb-1">DÎNER</label>
+                            <select onchange="saveMeal('diner','${j}', this.value)" class="w-full text-[9px] font-bold p-1 rounded bg-white border border-slate-200">
+                                ${Object.keys(MEALS_DB).map(k => `<option value="${k}" ${svN==k?'selected':''}>${MEALS_DB[k].n}</option>`).join('')}
+                            </select>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            document.getElementById('meal-planner').innerHTML = htmlP;
+            calculateShopping();
+        }
+
+        function saveMeal(type, jour, val) {
+            localStorage.setItem(`${type}-${jour}`, val);
+            calculateShopping();
+        }
+
+        function calculateShopping() {
+            const n = parseInt(localStorage.getItem('config-pers') || 1);
+            let needed = {};
+            
+            JOURS.forEach(j => {
+                const l = localStorage.getItem(`lunch-${j}`) || 0;
+                const d = localStorage.getItem(`diner-${j}`) || 1;
+                [MEALS_DB[l], MEALS_DB[d]].forEach(m => {
+                    m.ing.forEach(ing => {
+                        needed[ing] = (needed[ing] || 0) + 1;
+                    });
+                });
+            });
+
+            const html = Object.keys(needed).map(ing => `
+                <div class="flex justify-between items-center border-b border-white/5 pb-1">
+                    <span>${ing}</span>
+                    <span class="text-norway font-bold">x${needed[ing] * n}</span>
+                </div>
+            `).join('');
+            document.getElementById('shopping-list-auto').innerHTML = html || "Choisis des menus pour voir ta liste.";
+        }
+
+        function renderTracking() {
+            const container = document.getElementById('tracking-weekly');
+            container.innerHTML = "";
+            for(let i=1; i<=8; i++) {
+                const svWeight = localStorage.getItem(`weight-w${i}`) || "";
+                const div = document.createElement('div');
+                div.className = "bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3";
+                div.innerHTML = `
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <span class="font-black text-xs uppercase italic italic italic italic">Semaine ${i}</span>
+                        <input type="text" value="${svWeight}" oninput="localStorage.setItem('weight-w${i}', this.value)" placeholder="Poids (kg)" class="w-20 text-right text-xs font-bold border-none bg-slate-50 rounded p-1">
+                    </div>
+                    <div class="flex justify-between gap-1">
+                        ${JOURS.map(j => {
+                            const dId = `check-w${i}-${j}`;
+                            const isC = localStorage.getItem(dId) === 'true';
+                            return `
+                            <div onclick="toggleDay('${dId}', this)" class="flex-1 h-8 flex items-center justify-center rounded text-[9px] font-black border border-slate-100 transition-all ${isC?'bg-norway text-white':'bg-slate-50 text-slate-400'}">${j[0]}</div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                container.appendChild(div);
+            }
+        }
+
+        function toggleDay(id, el) {
+            const state = el.classList.contains('bg-norway');
+            if(state) {
+                el.classList.replace('bg-norway', 'bg-slate-50');
+                el.classList.replace('text-white', 'text-slate-400');
+                localStorage.setItem(id, 'false');
+            } else {
+                el.classList.replace('bg-slate-50', 'bg-norway');
+                el.classList.replace('text-slate-400', 'text-white');
+                localStorage.setItem(id, 'true');
+            }
+        }
+
+        // INIT
+        window.onload = () => {
+            const savedPers = localStorage.getItem('config-pers');
+            if(savedPers) document.getElementById('nb-personnes').value = savedPers;
+            updateFood();
+            renderTracking();
+        };
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="fr" class="bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <title>Norway OS 🇳🇴</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['DM Sans'], condensed: ['Barlow Condensed'] },
+                    colors: { navy: '#0d1b2a', norway: '#e8542a', camille: '#f472b6' }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .nav-btn.active { @apply border-norway text-white bg-white/10; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
         input[type="checkbox"] { @apply w-5 h-5 accent-norway rounded; }
     </style>
 </head>
