@@ -21,137 +21,123 @@
         .tab-content.active { display: block; }
         .nav-btn.active { @apply border-norway text-white bg-white/10; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        /* Style des infographies CSS */
-        .sketch-box { @apply bg-slate-900 rounded-xl p-4 my-2 border border-slate-700 flex flex-col items-center justify-center min-h-[120px] text-emerald-400 font-mono text-[10px]; }
-        .human-body { @apply w-8 h-12 border-2 border-emerald-500 rounded-full relative; }
+        .day-card { @apply bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-4; }
+        .day-head { @apply p-4 text-white font-condensed font-bold uppercase italic flex justify-between items-center; }
+        .ex-step { @apply flex gap-3 p-3 border-b border-slate-50 last:border-none items-center; }
+        .ex-icon { @apply w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold shrink-0; }
     </style>
 </head>
 <body class="font-sans text-slate-900 pb-24">
 
     <header class="bg-navy text-white p-6 sticky top-0 z-[60] shadow-xl text-center">
         <h1 class="font-condensed text-2xl font-extrabold uppercase tracking-tight italic">Norway OS</h1>
-        <p class="text-[9px] text-norway font-bold uppercase tracking-[0.2em]">Réveil : 06h00 - 06h15</p>
+        <p class="text-[9px] text-norway font-bold uppercase tracking-[0.2em]">Prep : Réveil 06h00 | 93kg -> 85kg</p>
     </header>
 
     <nav class="bg-slate-900 sticky top-[76px] z-50 flex overflow-x-auto no-scrollbar border-b border-white/10">
         <button onclick="showTab('sport')" class="nav-btn active flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 italic">Sport</button>
         <button onclick="showTab('food')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 italic">Food</button>
-        <button onclick="showTab('work')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 italic">Work</button>
+        <button onclick="showTab('work')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 italic">Bureau</button>
         <button onclick="showTab('life')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-camille italic">Camille</button>
         <button onclick="showTab('stats')" class="nav-btn flex-1 px-4 py-4 text-[9px] font-bold uppercase tracking-widest text-slate-400 italic">Suivi</button>
     </nav>
 
-    <main class="max-w-xl mx-auto p-4 space-y-6">
+    <main class="max-w-xl mx-auto p-4">
 
-        <section id="tab-sport" class="tab-content active space-y-4">
+        <section id="tab-sport" class="tab-content active">
             
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="bg-purple-600 p-4 text-white flex justify-between font-condensed font-bold uppercase italic">
-                    <span>Lundi & Vendredi</span>
-                    <span class="text-[10px]">HIIT & Marche Pente</span>
-                </div>
-                <div class="p-4 space-y-3">
-                    <div class="text-[11px] font-bold text-purple-600 uppercase italic underline italic">1. Échauffement (15 min)</div>
-                    <p class="text-[10px] text-slate-500 italic">Tapis : Vitesse 6km/h | Pente 6% à 10%.</p>
-                    <div class="sketch-box">
-                        <div class="flex gap-2 items-end">
-                            <div class="w-1 h-4 bg-emerald-500"></div>
-                            <div class="w-1 h-6 bg-emerald-500"></div>
-                            <div class="w-1 h-8 bg-emerald-500"></div>
-                            <div class="w-1 h-12 bg-emerald-500 animate-pulse"></div>
-                        </div>
-                        <span class="mt-2 uppercase tracking-tighter italic italic">Schéma : Progression Pente</span>
-                    </div>
-                    <div class="text-[11px] font-bold text-purple-600 uppercase italic underline italic">2. HIIT Sprints (12 rounds)</div>
-                    <p class="text-[10px] text-slate-500 italic">30s Sprint Max / 30s Repos (descendre du tapis).</p>
+            <div class="day-card">
+                <div class="day-head bg-purple-600 italic"><span>Lundi</span><span class="text-[10px]">HIIT & Marche Pente</span></div>
+                <div class="p-2">
+                    <div class="ex-step"><div class="ex-icon">01</div><p class="text-xs"><strong>Marche Inclinée (15 min) :</strong> Vitesse 6km/h. Monte la pente de 2% toutes les 3 min jusqu'à 10%.</p></div>
+                    <div class="ex-step"><div class="ex-icon text-purple-600">02</div><p class="text-xs"><strong>HIIT Sprints (12 min) :</strong> 30s Sprint Max / 30s Repos. Sors les pieds du tapis pour le repos.</p></div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="bg-blue-800 p-4 text-white flex justify-between font-condensed font-bold uppercase italic">
-                    <span>Mercredi</span>
-                    <span class="text-[10px]">Force & TRX</span>
-                </div>
-                <div class="p-4 space-y-3">
-                    <div class="sketch-box">
-                        <div class="relative w-16 h-16 border-2 border-emerald-500 rotate-45 flex items-center justify-center font-bold">TRX</div>
-                        <span class="mt-2 uppercase tracking-tighter italic italic italic italic">Schéma : Rowing 45°</span>
-                    </div>
-                    <ul class="text-[11px] font-bold space-y-1">
-                        <li>• TRX Row : 15 reps</li>
-                        <li>• Pompes : 15 reps</li>
-                        <li>• Planche : 45 sec</li>
-                    </ul>
+            <div class="day-card">
+                <div class="day-head bg-blue-500 italic"><span>Mardi</span><span class="text-[10px]">Home Trainer</span></div>
+                <div class="p-2 italic">
+                    <div class="ex-step"><div class="ex-icon text-blue-500 italic">01</div><p class="text-xs italic"><strong>Cardio Zone 2 (45 min) :</strong> Pédalage régulier. BPM cible : 125. Tu dois pouvoir parler.</p></div>
                 </div>
             </div>
 
-            <div class="bg-emerald-600 rounded-2xl p-4 text-white">
-                <h3 class="font-condensed text-xl font-bold uppercase italic italic">Samedi & Dimanche : Mode Nomade</h3>
-                <div class="space-y-4 mt-3">
-                    <div class="bg-white/10 p-3 rounded-xl border border-white/20 italic italic">
-                        <span class="font-bold text-[11px] uppercase underline">Étirements Sol (Pigeon)</span>
-                        <div class="sketch-box bg-emerald-900 border-emerald-700 text-white italic italic italic italic">
-                            <span class="text-xl">🧘</span>
-                            <span class="mt-1">Dos droit | Jambe 90°</span>
-                        </div>
-                    </div>
+            <div class="day-card italic">
+                <div class="day-head bg-indigo-700 italic italic italic"><span>Mercredi</span><span class="text-[10px]">Renforcement TRX</span></div>
+                <div class="p-2 italic">
+                    <div class="ex-step italic italic italic italic"><div class="ex-icon text-indigo-700 italic italic italic italic italic">01</div><p class="text-xs italic italic"><strong>Circuit Force (4 tours) :</strong> 15 TRX Rows + 15 Pompes + 15 Squats + 45s Planche.</p></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-head bg-blue-700 italic"><span>Jeudi</span><span class="text-[10px]">Endurance Rando</span></div>
+                <div class="p-2">
+                    <div class="ex-step"><div class="ex-icon text-blue-700">01</div><p class="text-xs"><strong>Marche Longue (45 min) :</strong> Vitesse 5.5km/h. Pente fixe 10%. Simule la montée en fjord.</p></div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-head bg-purple-600 italic"><span>Vendredi</span><span class="text-[10px]">HIIT & Marche Pente</span></div>
+                <div class="p-2">
+                    <div class="ex-step"><div class="ex-icon italic italic">01</div><p class="text-xs italic italic"><strong>Marche Inclinée (15 min) :</strong> Idem Lundi. Préchauffage métabolique.</p></div>
+                    <div class="ex-step"><div class="ex-icon text-purple-600 italic italic">02</div><p class="text-xs italic italic"><strong>HIIT Sprints (12 min) :</strong> Intensité maximale avant le week-end.</p></div>
+                </div>
+            </div>
+
+            <div class="day-card border-norway/20 border-2">
+                <div class="day-head bg-emerald-600 italic italic"><span>Samedi & Dimanche</span><span class="text-[10px]">Nomade / Anywhere</span></div>
+                <div class="p-2 italic">
+                    <div class="ex-step italic italic"><div class="ex-icon text-emerald-600 italic italic italic">01</div><p class="text-xs italic italic"><strong>Running Souple (25 min) :</strong> Oxygénation, n'importe où.</p></div>
+                    <div class="ex-step italic italic"><div class="ex-icon text-emerald-600 italic italic italic">02</div><p class="text-xs italic italic"><strong>Mobilité Sol (15 min) :</strong> Focus Hanche & Dos (Pigeon pose, Chien tête en bas).</p></div>
                 </div>
             </div>
         </section>
 
         <section id="tab-food" class="tab-content space-y-4">
-            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm italic italic italic italic">
-                <div class="flex justify-between items-center border-b pb-2 mb-4 italic italic">
-                    <h3 class="font-condensed text-xl font-bold uppercase text-norway italic">Menus de la semaine</h3>
-                    <select id="nb-personnes" onchange="updateFood()" class="bg-slate-100 border-none rounded p-1 text-[10px] font-black italic italic italic italic">
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm italic italic">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-condensed text-xl font-bold uppercase text-norway italic">Planner & Shopping</h3>
+                    <select id="nb-personnes" onchange="updateFood()" class="bg-slate-100 border-none rounded p-1 text-[10px] font-black italic italic italic">
                         <option value="1">SOLO</option>
-                        <option value="2">AVEC CAMILLE</option>
+                        <option value="2">DUO (+ CAMILLE)</option>
                     </select>
                 </div>
-                <div id="meal-planner" class="space-y-3 italic italic italic"></div>
+                <div id="meal-planner" class="space-y-2"></div>
             </div>
 
-            <div class="bg-slate-900 text-white p-5 rounded-2xl shadow-xl italic italic italic">
+            <div class="bg-slate-900 text-white p-5 rounded-2xl shadow-xl italic italic">
                 <h3 class="font-condensed text-lg uppercase font-bold text-norway italic mb-3">🛒 Liste de courses auto</h3>
-                <div id="shopping-list-auto" class="grid grid-cols-1 gap-1 text-[10px] italic italic font-bold"></div>
+                <div id="shopping-list-auto" class="grid grid-cols-1 gap-1 text-[10px] font-bold italic italic"></div>
             </div>
         </section>
 
-        <section id="tab-work" class="tab-content space-y-4 italic italic italic italic italic">
-            <div class="bg-indigo-900 text-white p-5 rounded-2xl italic font-condensed text-xl uppercase italic italic">Office & Conduite</div>
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4 italic italic italic">
-                <div class="flex gap-4 italic italic italic italic">
-                    <span class="text-2xl">💆</span>
-                    <div class="text-[11px] italic">
-                        <strong class="text-indigo-600 uppercase font-bold italic">Cervicales</strong><br>
-                        Rétraction du menton : Rentrer le menton sans baisser la tête (double menton). 10 reps.
-                    </div>
+        <section id="tab-work" class="tab-content space-y-4 italic italic">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4 italic">
+                <h3 class="font-condensed text-xl font-bold uppercase text-indigo-600 italic">Santé au Travail</h3>
+                
+                <div class="bg-indigo-50 p-4 rounded-xl space-y-3">
+                    <h4 class="font-bold text-xs uppercase text-indigo-700 italic">👀 Fatigue Visuelle & Convergence</h4>
+                    <p class="text-[10px] text-slate-600 italic leading-relaxed"><strong>Le Crayon :</strong> Tiens un crayon à bout de bras. Rapproche-le lentement de ton nez en gardant la pointe nette. Recule. Répète 10 fois.</p>
+                    <p class="text-[10px] text-slate-600 italic leading-relaxed"><strong>Sauts de regard :</strong> Regarde un objet proche (30cm), puis un objet lointain (6m+). Alterne rapidement toutes les 2 sec pendant 1 min.</p>
                 </div>
-                <div class="flex gap-4 border-t pt-4">
-                    <span class="text-2xl">🖐️</span>
-                    <div class="text-[11px] italic italic">
-                        <strong class="text-indigo-600 uppercase font-bold">Poignets</strong><br>
-                        Étire tes poignets vers le haut et le bas toutes les 2h. Vital pour le volant/souris.
-                    </div>
+
+                <div class="p-3 border-l-4 border-indigo-200 text-[10px] text-slate-500 italic">
+                    <strong>Rappel :</strong> Cervicales -> Rétraction du menton (double menton) 10 reps toutes les 2h.
                 </div>
             </div>
         </section>
 
-        <section id="tab-life" class="tab-content space-y-4">
-            <div class="bg-camille text-white p-5 rounded-2xl shadow-lg flex justify-between items-center font-condensed text-xl font-bold uppercase italic">
-                <span>Détente & TSE</span>
-                <span class="text-xl">🧘</span>
+        <section id="tab-life" class="tab-content space-y-4 italic">
+            <div class="bg-camille text-white p-5 rounded-2xl shadow-lg flex justify-between items-center italic font-condensed text-xl font-bold uppercase italic italic">
+                <span>Détente & TSE</span><span class="text-2xl italic italic">🧘</span>
             </div>
-            <div class="bg-white p-5 rounded-2xl border border-camille/20 shadow-sm space-y-4 italic italic italic italic">
-                <a href="https://trainsweateat.com" target="_blank" class="block w-full bg-slate-900 text-white text-center py-4 rounded-xl font-black text-xs uppercase tracking-widest italic italic">Lancer l'App TSE</a>
-                <div class="p-3 bg-camille/5 rounded-xl text-[10px] text-slate-600 leading-relaxed italic italic italic italic italic">
-                    <strong>Rituel Soir :</strong> Tisane, Yoga doux Camille & Moi, Zéro écran après 22h.
-                </div>
+            <div class="bg-white p-5 rounded-2xl border border-camille/20 shadow-sm italic italic">
+                <a href="https://trainsweateat.com" target="_blank" class="block w-full bg-slate-900 text-white text-center py-4 rounded-xl font-black text-xs uppercase tracking-widest italic">Lancer l'App TSE</a>
+                <p class="text-[11px] text-slate-600 italic leading-relaxed mt-4 italic italic italic">Le soir avec Camille : Yoga doux ou étirements duo. Zéro téléphone après 22h, tisane, et débrief de la journée.</p>
             </div>
         </section>
 
-        <section id="tab-stats" class="tab-content space-y-4 italic italic italic">
-            <div id="tracking-weekly"></div>
+        <section id="tab-stats" class="tab-content space-y-4 italic italic">
+            <div id="tracking-weekly" class="space-y-4 italic italic italic italic"></div>
         </section>
 
     </main>
@@ -167,13 +153,16 @@
 
         const JOURS = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
         const MEALS_DB = {
-            0: { n: "Saumon / Patate Douce", ing: {"Pavé Saumon": 150, "Patate Douce": 200, "Brocolis": 150} },
+            0: { n: "Saumon / Patate Douce", ing: {"Saumon (pavé)": 150, "Patate Douce": 200, "Brocolis": 150} },
             1: { n: "Poulet / Riz Complet", ing: {"Blanc Poulet": 150, "Riz Complet": 60, "Haricots": 150} },
-            2: { n: "Omelette / Féta", ing: {"Oeufs": 3, "Féta": 30, "Epinards": 200} },
-            3: { n: "Dinde / Quinoa", ing: {"Filet Dinde": 150, "Quinoa": 60, "Poivrons": 100} },
+            2: { n: "Omelette / Féta / Epinards", ing: {"Oeufs": 3, "Féta": 30, "Epinards": 200} },
+            3: { n: "Dinde / Quinoa / Poivrons", ing: {"Filet Dinde": 150, "Quinoa": 60, "Poivrons": 100} },
             4: { n: "Cabillaud / Ratatouille", ing: {"Cabillaud": 150, "Ratatouille": 200, "Riz": 40} },
-            5: { n: "Bowl Avoine Healthy", ing: {"Flocons Avoine": 60, "Banane": 1, "Beurre Cacahuète": 15} },
-            6: { n: "Salade Thon / Avocat", ing: {"Thon": 140, "Avocat": 0.5, "Salade": 100} }
+            5: { n: "Bowl Avoine / Banane", ing: {"Flocons Avoine": 60, "Banane": 1, "Amandes": 15} },
+            6: { n: "Steak 5% / Lentilles", ing: {"Steak 5%": 150, "Lentilles": 100, "Carottes": 100} },
+            7: { n: "Crevettes / Courgettes / Wok", ing: {"Crevettes": 150, "Courgettes": 200, "Sauce Soja": 10} },
+            8: { n: "Tofu / Sarrasin / Chou", ing: {"Tofu": 150, "Sarrasin": 60, "Chou Kale": 100} },
+            9: { n: "Daurade / Asperges", ing: {"Daurade": 150, "Asperges": 200, "Citron": 1} }
         };
 
         function updateFood() {
@@ -185,13 +174,13 @@
                 const svD = localStorage.getItem(`l-${j}`) || 0;
                 const svN = localStorage.getItem(`d-${j}`) || 1;
                 htmlP += `
-                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 italic italic">
-                    <span class="text-[9px] font-black uppercase text-slate-400 block mb-2 italic italic">${j}</span>
-                    <div class="grid grid-cols-2 gap-2 italic italic">
-                        <select onchange="saveM('l','${j}', this.value)" class="w-full text-[9px] font-bold p-1 rounded bg-white border italic italic">
+                <div class="p-2 bg-slate-50 rounded-xl border border-slate-100 italic italic flex flex-col gap-1 italic italic">
+                    <span class="text-[8px] font-black uppercase text-slate-400 font-bold italic">${j}</span>
+                    <div class="grid grid-cols-2 gap-2 italic italic italic italic">
+                        <select onchange="saveM('l','${j}', this.value)" class="text-[9px] font-bold p-1 bg-white border italic italic italic italic">
                             ${Object.keys(MEALS_DB).map(k => `<option value="${k}" ${svD==k?'selected':''}>${MEALS_DB[k].n}</option>`).join('')}
                         </select>
-                        <select onchange="saveM('d','${j}', this.value)" class="w-full text-[9px] font-bold p-1 rounded bg-white border italic italic">
+                        <select onchange="saveM('d','${j}', this.value)" class="text-[9px] font-bold p-1 bg-white border italic italic italic italic italic">
                             ${Object.keys(MEALS_DB).map(k => `<option value="${k}" ${svN==k?'selected':''}>${MEALS_DB[k].n}</option>`).join('')}
                         </select>
                     </div>
@@ -217,7 +206,7 @@
             });
             document.getElementById('shopping-list-auto').innerHTML = Object.entries(needed).map(([ing, qty]) => `
                 <div class="flex justify-between border-b border-white/5 py-1">
-                    <span>${ing}</span><span class="text-norway">${qty} ${qty > 5 ? 'g' : ''}</span>
+                    <span>${ing}</span><span class="text-norway">${qty} ${qty > 5 ? 'g/u' : ''}</span>
                 </div>`).join('');
         }
 
@@ -227,17 +216,17 @@
             for(let i=1; i<=8; i++) {
                 const w = localStorage.getItem(`weight-w${i}`) || "";
                 const div = document.createElement('div');
-                div.className = "bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2 mb-3 italic italic";
+                div.className = "bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2 mb-3 italic italic italic italic italic";
                 div.innerHTML = `
-                    <div class="flex justify-between border-b pb-1">
-                        <span class="font-bold text-xs italic">SEMAINE ${i}</span>
-                        <input type="text" value="${w}" oninput="localStorage.setItem('weight-w${i}', this.value)" placeholder="Poids" class="w-12 text-right border-none text-[10px] bg-slate-50">
+                    <div class="flex justify-between border-b pb-1 italic italic italic">
+                        <span class="font-bold text-xs italic italic italic italic">SEMAINE ${i}</span>
+                        <input type="text" value="${w}" oninput="localStorage.setItem('weight-w${i}', this.value)" placeholder="Poids" class="w-12 text-right border-none text-[10px] bg-slate-50 italic italic italic">
                     </div>
-                    <div class="flex justify-between">
+                    <div class="flex justify-between italic italic italic">
                         ${JOURS.map(j => {
                             const id = `cw${i}-${j}`;
                             const c = localStorage.getItem(id) === 'true';
-                            return `<div onclick="tgl('${id}', this)" class="w-6 h-6 rounded text-[8px] flex items-center justify-center font-bold transition-all border ${c?'bg-norway text-white':'bg-slate-50 text-slate-300'}">${j[0]}</div>`;
+                            return `<div onclick="tgl('${id}', this)" class="w-6 h-6 rounded text-[8px] flex items-center justify-center font-bold transition-all border italic italic italic ${c?'bg-norway text-white shadow-inner':'bg-slate-50 text-slate-300'}">${j[0]}</div>`;
                         }).join('')}
                     </div>
                 `;
@@ -247,7 +236,7 @@
 
         function tgl(id, el) {
             const c = el.classList.contains('bg-norway');
-            el.className = `w-6 h-6 rounded text-[8px] flex items-center justify-center font-bold transition-all border ${!c?'bg-norway text-white':'bg-slate-50 text-slate-300'}`;
+            el.className = `w-6 h-6 rounded text-[8px] flex items-center justify-center font-bold transition-all border ${!c?'bg-norway text-white shadow-inner':'bg-slate-50 text-slate-300'}`;
             localStorage.setItem(id, !c);
         }
 
