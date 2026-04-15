@@ -1,1455 +1,276 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="bg-slate-50 text-slate-900">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Programme Norvège 🇳🇴</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --navy:#0d1b2a;--navy2:#162438;--navy3:#1e3352;
-  --orange:#e8542a;--orange2:#f0784e;
-  --blue:#1a5fb4;--green:#1d7a4e;--amber:#b45309;--red:#991b1b;--purple:#5b21b6;
-  --bg:#f7f6f2;--card:#fff;--border:#e5e2d9;
-  --text:#1a1a18;--muted:#7a7870;--light:#a8a499;
-  --radius:12px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-
-/* HEADER */
-.hero{background:var(--navy);color:#fff;padding:32px 24px 28px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:var(--orange);opacity:.08}
-.hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:180px;height:180px;border-radius:50%;background:#1a5fb4;opacity:.1}
-.hero-flag{font-size:28px;margin-bottom:6px}
-.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
-.hero-sub{font-size:13px;color:#94a3b8;margin-top:4px}
-.hero-stats{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:500}
-.stat span{display:block;font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:var(--orange)}
-
-/* NAV */
-.nav{background:var(--navy2);display:flex;overflow-x:auto;border-bottom:2px solid var(--navy3);position:sticky;top:0;z-index:100}
-.nav-btn{padding:12px 16px;font-size:12px;font-weight:600;color:#64748b;border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:'DM Sans',sans-serif;transition:all .2s}
-.nav-btn:hover{color:#94a3b8}
-.nav-btn.active{color:#fff;border-bottom-color:var(--orange)}
-
-/* SECTIONS */
-.section{display:none;padding:20px 16px 40px;max-width:760px;margin:0 auto}
-.section.active{display:block}
-
-/* CARDS */
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
-.card-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-
-/* PHASES */
-.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-.phase{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 12px}
-.phase-n{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.phase-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700}
-.phase-weeks{font-size:11px;color:var(--muted);margin-top:2px}
-.phase-goal{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
-
-/* WEEKLY TABLE */
-.week-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
-.week-table th{text-align:left;font-size:10px;font-weight:600;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--border);background:var(--bg);text-transform:uppercase;letter-spacing:.04em}
-.week-table td{padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:middle;line-height:1.4}
-.week-table td:first-child{font-weight:600}
-.day-pill{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;color:#fff}
-.d-cardio{background:var(--purple)}
-.d-trx{background:var(--blue)}
-.d-body{background:var(--amber)}
-.d-rest{background:#9ca3af}
-
-/* SESSION BLOCKS */
-.session{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden}
-.session-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-.session-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.session-title{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700}
-.session-meta{font-size:11px;color:var(--muted)}
-
-/* EXERCISE TABLE WITH ILLUSTRATIONS */
-.ex-table{width:100%;border-collapse:collapse}
-.ex-table th{font-size:10px;font-weight:600;color:var(--muted);padding:6px 10px;border-bottom:1px solid var(--border);background:var(--bg);text-transform:uppercase;letter-spacing:.04em;text-align:left}
-.ex-table td{padding:8px 10px;border-bottom:1px solid #f3f1ec;vertical-align:middle}
-.ex-table tr:last-child td{border-bottom:none}
-.ex-illus{width:54px;height:54px;flex-shrink:0}
-.ex-name-cell{font-weight:600;font-size:12px;line-height:1.3}
-.ex-tip-cell{font-size:10px;color:var(--muted);line-height:1.4;margin-top:2px}
-.ex-reps{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--orange);white-space:nowrap}
-.ex-muscle{font-size:10px;color:var(--muted)}
-.tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;margin-bottom:3px}
-.tag-trx{background:#dbeafe;color:#1e40af}
-.tag-elast{background:#dcfce7;color:#166534}
-.tag-corps{background:#fef3c7;color:#92400e}
-.tag-sol{background:#fee2e2;color:#991b1b}
-.tag-cardio{background:#ede9fe;color:#4c1d95}
-
-/* CARDIO BLOCKS */
-.cardio-block{padding:12px 16px}
-.cardio-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f3f1ec;font-size:12px}
-.cardio-row:last-child{border-bottom:none}
-.cardio-label{font-weight:600}
-.cardio-val{color:var(--muted);text-align:right}
-.intensity{display:flex;gap:3px;align-items:center}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--border)}
-.dot.on{background:var(--orange)}
-
-/* TIP BOX */
-.tip{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6;margin:10px 16px 14px}
-.tip strong{font-weight:600}
-
-/* ILLUSTRATION GRID */
-.illus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-@media(min-width:500px){.illus-grid{grid-template-columns:repeat(4,1fr)}}
-.illus-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:5px}
-.illus-card svg{width:90px;height:90px}
-.illus-name{font-size:11px;font-weight:600;text-align:center;color:var(--text);line-height:1.3}
-.illus-muscle{font-size:10px;color:var(--muted);text-align:center}
-.cat-section{margin-bottom:24px}
-.cat-head{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.cat-head::after{content:'';flex:1;height:.5px;background:var(--border)}
-
-/* NUTRITION */
-.macro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-.macro{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center}
-.macro-val{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800}
-.macro-label{font-size:10px;color:var(--muted);margin-top:2px}
-.meal-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:8px}
-.meal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.meal-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700}
-.meal-kcal{font-size:11px;color:var(--muted);background:var(--bg);padding:3px 8px;border-radius:20px}
-.meal-items{font-size:12px;color:var(--muted);line-height:1.8}
-.rules{list-style:none;display:flex;flex-direction:column;gap:8px}
-.rules li{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:12px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
-.rules li .ic{font-size:16px;flex-shrink:0}
-
-/* PROGRESS */
-.progress-section{margin-bottom:20px}
-.progress-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;margin-bottom:10px}
-.week-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:8px}
-.week-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.week-num{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700}
-.week-dates{font-size:11px;color:var(--muted)}
-.check-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.chk{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
-.chk input{width:14px;height:14px;accent-color:var(--orange)}
-.weight-input{border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:12px;width:80px;font-family:'DM Sans',sans-serif}
-.weight-input:focus{outline:none;border-color:var(--orange)}
-.final-week{background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);border:none;color:#fff}
-.final-week .week-num,.final-week .week-dates{color:#fff}
-.final-week .chk{color:#94a3b8}
-
-.section-header{margin-bottom:16px}
-.section-header h2{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;margin-bottom:2px}
-.section-header p{font-size:13px;color:var(--muted)}
-
-/* PROGRESSION BLOCKS */
-.prog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
-.prog-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px}
-.prog-card .label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
-.prog-card .val{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800}
-.prog-card .sub{font-size:11px;color:var(--muted);margin-top:2px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Programme Norvège 🇳🇴</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        condensed: ['Barlow Condensed', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: '#0d1b2a',
+                        'norway-orange': '#e8542a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Styles spécifiques pour les onglets et les chevrons non gérables nativement en utilitaire pur sans plugin */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .nav-btn.active { @apply border-norway-orange text-white; }
+        .chevron.open { transform: rotate(90deg); }
+    </style>
 </head>
-<body>
+<body class="font-sans antialiased pb-12">
 
-<div class="hero">
-  <div class="hero-flag">🇳🇴</div>
-  <div class="hero-title">Programme Norvège</div>
-  <div class="hero-sub">Road trip en van · 12 kg matos photo sur le dos · Départ 6 juin</div>
-  <div class="hero-stats">
-    <div class="stat"><span>93 → 85 kg</span>Objectif poids</div>
-    <div class="stat"><span>7,5 sem</span>Durée</div>
-    <div class="stat"><span>5×/sem</span>Séances</div>
-    <div class="stat"><span>1h</span>Au réveil</div>
-    <div class="stat"><span>1 800</span>kcal/jour</div>
-  </div>
-</div>
+    <header class="bg-navy text-white p-8 relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-48 h-48 bg-norway-orange opacity-10 rounded-full"></div>
+        <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-600 opacity-10 rounded-full"></div>
 
-<nav class="nav">
-  <button class="nav-btn active" onclick="showTab('overview')">📋 Plan</button>
-  <button class="nav-btn" onclick="showTab('sessions')">💪 Séances</button>
-  <button class="nav-btn" onclick="showTab('exercises')">🏋️ Exercices</button>
-  <button class="nav-btn" onclick="showTab('nutrition')">🥗 Nutrition</button>
-  <button class="nav-btn" onclick="showTab('tracking')">📊 Suivi</button>
-</nav>
+        <div class="relative z-10 max-w-3xl mx-auto">
+            <span class="text-3xl mb-2 block">🇳🇴</span>
+            <h1 class="font-condensed text-4xl font-extrabold uppercase tracking-tight leading-none">Programme Norvège</h1>
+            <p class="text-slate-400 text-sm mt-2 font-medium">Road trip en van · 12 kg matos photo · Départ 6 juin</p>
+            
+            <div class="flex flex-wrap gap-3 mt-6">
+                <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex-1 min-w-[120px]">
+                    <span class="block font-condensed text-2xl font-bold text-norway-orange">93 → 85 kg</span>
+                    <span class="text-[10px] uppercase tracking-wider text-slate-400">Objectif poids</span>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex-1 min-w-[120px]">
+                    <span class="block font-condensed text-2xl font-bold text-norway-orange">7,5 sem</span>
+                    <span class="text-[10px] uppercase tracking-wider text-slate-400">Durée</span>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex-1 min-w-[120px]">
+                    <span class="block font-condensed text-2xl font-bold text-norway-orange">5×/sem</span>
+                    <span class="text-[10px] uppercase tracking-wider text-slate-400">Séances</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<!-- TAB 1: PLAN -->
-<div id="tab-overview" class="section active">
-  <div class="section-header" style="margin-top:16px">
-    <h2>Vue d'ensemble</h2>
-    <p>3 phases pour arriver prêt le 6 juin</p>
-  </div>
+    <nav class="bg-slate-900 sticky top-0 z-50 flex overflow-x-auto border-b-2 border-slate-800 no-scrollbar">
+        <button onclick="showTab('overview', this)" class="nav-btn active px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">📋 Plan</button>
+        <button onclick="showTab('sessions', this)" class="nav-btn px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">💪 Séances</button>
+        <button onclick="showTab('exercises', this)" class="nav-btn px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">🏋️ Détails</button>
+        <button onclick="showTab('nutrition', this)" class="nav-btn px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">🥗 Nutrition</button>
+        <button onclick="showTab('tracking', this)" class="nav-btn px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400 border-b-2 border-transparent transition-all whitespace-nowrap">📊 Suivi</button>
+    </nav>
 
-  <div class="phases">
-    <div class="phase">
-      <div class="phase-n">Phase 1</div>
-      <div class="phase-name">🔥 Remise en route</div>
-      <div class="phase-weeks">Sem. 1–2</div>
-      <div class="phase-goal">Retrouver les sensations. 3 tours. 10 rounds HIIT.</div>
-    </div>
-    <div class="phase">
-      <div class="phase-n">Phase 2</div>
-      <div class="phase-name">💪 Perte active</div>
-      <div class="phase-weeks">Sem. 3–6</div>
-      <div class="phase-goal">4 tours. 12–14 rounds. Cardio intensif.</div>
-    </div>
-    <div class="phase">
-      <div class="phase-n">Phase 3</div>
-      <div class="phase-name">🔄 Entretien</div>
-      <div class="phase-weeks">Sem. 7–7,5</div>
-      <div class="phase-goal">Maintenir l'intensité. Stabiliser avant départ.</div>
-    </div>
-  </div>
+    <main class="max-w-3xl mx-auto px-4 mt-8">
 
-  <table class="week-table">
-    <thead><tr><th>Jour</th><th>Type</th><th>Focus</th><th>Durée</th></tr></thead>
-    <tbody>
-      <tr><td><span class="day-pill d-cardio">Lundi</span></td><td>HIIT Tapis</td><td>Brûle-graisses — sprints alternés</td><td>1h</td></tr>
-      <tr><td><span class="day-pill d-trx">Mardi</span></td><td>Circuit TRX + Élastiques</td><td>Haut du corps + gainage</td><td>1h</td></tr>
-      <tr><td><span class="day-pill d-cardio">Mercredi</span></td><td>Zone 2 Vélo</td><td>Endurance — brûle les graisses en profondeur</td><td>1h</td></tr>
-      <tr><td><span class="day-pill d-rest">Jeudi</span></td><td>Repos actif</td><td>Marche 30–45 min</td><td>—</td></tr>
-      <tr><td><span class="day-pill d-cardio">Vendredi</span></td><td>HIIT Home trainer</td><td>Tabata pyramide</td><td>1h</td></tr>
-      <tr><td><span class="day-pill d-body">Samedi</span></td><td>Circuit Total Body</td><td>Jambes + dos + gainage — spécial Norvège</td><td>1h</td></tr>
-      <tr><td><span class="day-pill d-rest">Dimanche</span></td><td>Repos complet</td><td>—</td><td>—</td></tr>
-    </tbody>
-  </table>
+        <section id="tab-overview" class="tab-content active space-y-6">
+            <div class="border-l-4 border-norway-orange pl-4">
+                <h2 class="font-condensed text-3xl font-bold uppercase">Vue d'ensemble</h2>
+                <p class="text-slate-500 text-sm italic">3 phases pour une condition physique optimale le 6 juin.</p>
+            </div>
 
-  <div class="prog-grid">
-    <div class="prog-card"><div class="label">Déficit calorique</div><div class="val" style="color:var(--orange)">~700 kcal</div><div class="sub">par jour (sport + alimentation)</div></div>
-    <div class="prog-card"><div class="label">Rythme de perte</div><div class="val" style="color:var(--green)">~1 kg</div><div class="sub">par semaine</div></div>
-    <div class="prog-card"><div class="label">Fréq. cardiaque Zone 2</div><div class="val" style="color:var(--blue)">~125</div><div class="sub">bpm (mercredi)</div></div>
-    <div class="prog-card"><div class="label">Objectif départ</div><div class="val" style="color:var(--purple)">~85 kg</div><div class="sub">le 6 juin</div></div>
-  </div>
-</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Phase 1 (Sem 1-2)</span>
+                    <h3 class="font-condensed text-lg font-bold mt-1">🔥 Remise en route</h3>
+                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">Retrouver les sensations. 3 tours. HIIT modéré.</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm ring-2 ring-norway-orange/20">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Phase 2 (Sem 3-6)</span>
+                    <h3 class="font-condensed text-lg font-bold mt-1 text-norway-orange text-lg">💪 Perte active</h3>
+                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">4 tours. 14 rounds HIIT. Focus déficit calorique.</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm font-bold">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter text-norway-orange font-extrabold">Phase 3 (S7+)</span>
+                    <h3 class="font-condensed text-lg font-bold mt-1">🔄 Affûtage</h3>
+                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">Stabilisation et maintien de l'intensité avant départ.</p>
+                </div>
+            </div>
 
-<!-- TAB 2: SESSIONS -->
-<div id="tab-sessions" class="section">
-  <div class="section-header" style="margin-top:16px">
-    <h2>Détail des séances</h2>
-    <p>5 séances hebdomadaires · 1h chacune · au réveil</p>
-  </div>
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                <table class="w-full text-left text-sm border-collapse">
+                    <thead class="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="p-4 font-bold text-slate-400 text-[10px] uppercase">Jour</th>
+                            <th class="p-4 font-bold text-slate-400 text-[10px] uppercase">Focus</th>
+                            <th class="p-4 font-bold text-slate-400 text-[10px] uppercase">Durée</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="p-4 font-bold text-purple-600">Lundi</td>
+                            <td class="p-4">HIIT Tapis (Sprints)</td>
+                            <td class="p-4 text-slate-400 text-xs text-bold uppercase font-bold">1h</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-blue-600">Mardi</td>
+                            <td class="p-4">TRX + Haut du corps</td>
+                            <td class="p-4 text-slate-400 text-xs text-bold uppercase font-bold">1h</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-emerald-600 font-extrabold">Mercredi</td>
+                            <td class="p-4 italic">Zone 2 Vélo (Brûle-graisses)</td>
+                            <td class="p-4 text-slate-400 text-xs text-bold uppercase font-bold">1h</td>
+                        </tr>
+                        <tr class="bg-slate-50/50 text-slate-400 italic">
+                            <td class="p-4">Jeudi</td>
+                            <td class="p-4">Repos actif (Marche)</td>
+                            <td class="p-4 text-xs">—</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-purple-600">Vendredi</td>
+                            <td class="p-4">HIIT Vélo (Tabata)</td>
+                            <td class="p-4 text-slate-400 text-xs text-bold uppercase font-bold">1h</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-orange-600">Samedi</td>
+                            <td class="p-4 font-bold italic">Total Body Special Norvège</td>
+                            <td class="p-4 text-slate-400 text-xs text-bold uppercase font-bold">1h</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-  <!-- LUNDI -->
-  <div class="session">
-    <div class="session-head" style="background:#faf5ff">
-      <div class="session-icon" style="background:#ede9fe">🏃</div>
-      <div>
-        <div class="session-title">Lundi — HIIT Tapis de course</div>
-        <div class="session-meta">Haute dépense · 40 sec sprint / 80 sec marche</div>
-      </div>
-    </div>
-    <div class="cardio-block">
-      <div class="cardio-row"><span class="cardio-label">Échauffement marche</span><span class="cardio-val">8 min · 5,5 km/h · pente 2%</span></div>
-      <div class="cardio-row"><span class="cardio-label">🔥 HIIT — Phase 1–2</span><span class="cardio-val">10 rounds · 30 min</span></div>
-      <div class="cardio-row"><span class="cardio-label">🔥🔥 HIIT — Phase 3–4</span><span class="cardio-val">12–14 rounds · 30 min</span></div>
-      <div class="cardio-row"><span class="cardio-label">Jogging lent</span><span class="cardio-val">10 min · allure confortable</span></div>
-      <div class="cardio-row"><span class="cardio-label">Retour au calme + étirements</span><span class="cardio-val">12 min</span></div>
-    </div>
-    <div class="tip"><strong>Sprint</strong> = vitesse où tu ne peux plus parler. Adapte à ton niveau, pas à un chiffre absolu.</div>
-  </div>
+        <section id="tab-sessions" class="tab-content space-y-4">
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                <div class="bg-purple-50 p-4 flex items-center gap-4 border-b border-purple-100">
+                    <span class="text-2xl bg-white w-10 h-10 flex items-center justify-center rounded-xl shadow-sm">🏃</span>
+                    <div>
+                        <h3 class="font-condensed font-bold text-lg leading-none">Lundi — HIIT Tapis</h3>
+                        <p class="text-[10px] text-purple-600 uppercase font-bold mt-1">Dépense Max · 40s/80s</p>
+                    </div>
+                </div>
+                <div class="p-4 space-y-3 text-sm">
+                    <div class="flex justify-between border-b border-slate-50 pb-2">
+                        <span class="font-medium">Échauffement marche</span>
+                        <span class="text-slate-500">8 min (5.5km/h)</span>
+                    </div>
+                    <div class="flex justify-between border-b border-slate-50 pb-2">
+                        <span class="font-bold text-purple-700">HIIT — Bloc Principal</span>
+                        <span class="text-slate-500 font-bold uppercase text-[11px] font-extrabold">12 Rounds</span>
+                    </div>
+                    <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 text-xs text-amber-800 italic">
+                        <strong>Note :</strong> Le sprint doit être une intensité où la parole est impossible.
+                    </div>
+                </div>
+            </div>
 
-  <!-- MARDI -->
-  <div class="session">
-    <div class="session-head" style="background:#eff6ff">
-      <div class="session-icon" style="background:#dbeafe">💪</div>
-      <div>
-        <div class="session-title">Mardi — Circuit TRX + Élastiques</div>
-        <div class="session-meta">4 tours · 60 sec repos entre chaque tour</div>
-      </div>
-    </div>
-    <table class="ex-table">
-      <thead><tr><th></th><th>Exercice</th><th>Reps</th><th>Muscles</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 110">
-            <rect x="44" y="3" width="22" height="5" rx="2" fill="#888"/>
-            <line x1="50" y1="8" x2="36" y2="44" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-            <line x1="60" y1="8" x2="40" y2="48" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-            <line x1="5" y1="104" x2="105" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-            <ellipse cx="72" cy="104" rx="14" ry="4" fill="#444"/>
-            <line x1="72" y1="100" x2="70" y2="80" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="70" y1="80" x2="64" y2="62" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <rect x="50" y="48" width="20" height="22" rx="5" fill="#2563eb" transform="rotate(-35,60,59)"/>
-            <line x1="48" y1="52" x2="37" y2="46" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <line x1="46" y1="55" x2="38" y2="50" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="78" cy="42" r="10" fill="#f5c5a0"/>
-            <path d="M68 38 Q78 29 88 38 Q83 33 78 32 Q73 33 68 38Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-trx">TRX</span><br>TRX Row</div><div class="ex-tip-cell">Corps incliné, tirer les coudes vers les hanches</div></td>
-          <td class="ex-reps">12</td>
-          <td class="ex-muscle">Dos · Biceps</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 110">
-            <rect x="4" y="8" width="16" height="5" rx="2" fill="#888"/>
-            <line x1="10" y1="13" x2="26" y2="50" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-            <line x1="5" y1="104" x2="105" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-            <ellipse cx="88" cy="104" rx="14" ry="4" fill="#444"/>
-            <line x1="88" y1="100" x2="82" y2="78" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="82" y1="78" x2="74" y2="60" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <rect x="46" y="44" width="32" height="18" rx="5" fill="#2563eb" transform="rotate(-20,62,53)"/>
-            <line x1="50" y1="50" x2="36" y2="55" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-            <line x1="36" y1="55" x2="28" y2="50" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="30" cy="38" r="10" fill="#f5c5a0"/>
-            <path d="M20 34 Q30 25 40 34 Q35 29 30 28 Q25 29 20 34Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-trx">TRX</span><br>TRX Chest Press</div><div class="ex-tip-cell">Corps incliné vers l'ancrage, pousser bras tendus</div></td>
-          <td class="ex-reps">12</td>
-          <td class="ex-muscle">Pectoraux · Triceps</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 110">
-            <line x1="10" y1="104" x2="100" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-            <path d="M32 104 Q55 112 78 104" stroke="#16a34a" stroke-width="3" fill="none"/>
-            <ellipse cx="32" cy="104" rx="11" ry="3.5" fill="#444"/>
-            <ellipse cx="78" cy="104" rx="11" ry="3.5" fill="#444"/>
-            <line x1="32" y1="100" x2="34" y2="72" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="78" y1="100" x2="76" y2="72" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <rect x="42" y="44" width="26" height="32" rx="6" fill="#2563eb"/>
-            <line x1="42" y1="52" x2="38" y2="72" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-            <line x1="68" y1="52" x2="72" y2="72" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-            <line x1="38" y1="72" x2="44" y2="56" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-            <line x1="72" y1="72" x2="66" y2="56" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="55" cy="34" r="10" fill="#f5c5a0"/>
-            <path d="M45 30 Q55 21 65 30 Q60 25 55 24 Q50 25 45 30Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-elast">Élastique</span><br>Curl biceps</div><div class="ex-tip-cell">Coudes fixes le long du corps</div></td>
-          <td class="ex-reps">15</td>
-          <td class="ex-muscle">Biceps</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 110">
-            <rect x="44" y="3" width="22" height="5" rx="2" fill="#888"/>
-            <line x1="50" y1="8" x2="36" y2="28" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-            <line x1="60" y1="8" x2="74" y2="28" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-            <line x1="10" y1="102" x2="100" y2="102" stroke="#e5e2d9" stroke-width="1.5"/>
-            <ellipse cx="33" cy="102" rx="12" ry="4" fill="#444"/>
-            <ellipse cx="77" cy="102" rx="12" ry="4" fill="#444"/>
-            <line x1="33" y1="98" x2="28" y2="75" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="77" y1="98" x2="82" y2="75" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="28" y1="75" x2="42" y2="57" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <line x1="82" y1="75" x2="68" y2="57" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <rect x="40" y="40" width="30" height="20" rx="5" fill="#2563eb"/>
-            <line x1="40" y1="46" x2="36" y2="28" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <line x1="70" y1="46" x2="74" y2="28" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="55" cy="30" r="10" fill="#f5c5a0"/>
-            <path d="M45 26 Q55 17 65 26 Q60 21 55 20 Q50 21 45 26Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-trx">TRX</span><br>TRX Squat assisté</div><div class="ex-tip-cell">Sangles pour l'équilibre, descente complète</div></td>
-          <td class="ex-reps">15</td>
-          <td class="ex-muscle">Cuisses · Fessiers</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 110">
-            <circle cx="8" cy="68" r="5" fill="#888"/>
-            <line x1="13" y1="68" x2="36" y2="62" stroke="#16a34a" stroke-width="2.5"/>
-            <line x1="8" y1="104" x2="105" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-            <ellipse cx="62" cy="104" rx="14" ry="4" fill="#444"/>
-            <line x1="62" y1="100" x2="60" y2="78" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <rect x="40" y="46" width="24" height="20" rx="5" fill="#2563eb" transform="rotate(-45,52,56)"/>
-            <line x1="42" y1="60" x2="36" y2="62" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-            <line x1="36" y1="62" x2="36" y2="72" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="34" cy="42" r="10" fill="#f5c5a0"/>
-            <path d="M24 38 Q34 29 44 38 Q39 33 34 32 Q29 33 24 38Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-elast">Élastique</span><br>Rowing debout</div><div class="ex-tip-cell">Penché en avant, coudes hauts</div></td>
-          <td class="ex-reps">12</td>
-          <td class="ex-muscle">Dos · Épaules</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 68">
-            <line x1="5" y1="62" x2="105" y2="62" stroke="#e5e2d9" stroke-width="1.5"/>
-            <ellipse cx="18" cy="62" rx="8" ry="3" fill="#e8a87c"/>
-            <ellipse cx="42" cy="62" rx="8" ry="3" fill="#e8a87c"/>
-            <line x1="18" y1="59" x2="22" y2="48" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-            <line x1="42" y1="59" x2="36" y2="48" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-            <rect x="26" y="40" width="58" height="12" rx="5" fill="#2563eb"/>
-            <line x1="14" y1="46" x2="96" y2="46" stroke="#60a5fa" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
-            <ellipse cx="90" cy="62" rx="8" ry="3" fill="#444"/>
-            <line x1="90" y1="59" x2="84" y2="52" stroke="#1d4ed8" stroke-width="6" stroke-linecap="round"/>
-            <circle cx="14" cy="38" r="9" fill="#f5c5a0"/>
-            <path d="M5 34 Q14 26 23 34 Q19 29 14 28 Q9 29 5 34Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-sol">Sol</span><br>Planche</div><div class="ex-tip-cell">Sur les avant-bras, dos parfaitement plat</div></td>
-          <td class="ex-reps">30 sec</td>
-          <td class="ex-muscle">Gainage</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 70">
-            <line x1="5" y1="65" x2="105" y2="65" stroke="#e5e2d9" stroke-width="1.5" stroke-dasharray="4,3"/>
-            <rect x="32" y="42" width="46" height="12" rx="5" fill="#2563eb"/>
-            <circle cx="15" cy="44" r="9" fill="#f5c5a0"/>
-            <path d="M6 40 Q15 32 24 40 Q20 35 15 34 Q10 35 6 40Z" fill="#5c3d1e"/>
-            <line x1="32" y1="46" x2="16" y2="36" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-            <line x1="32" y1="50" x2="16" y2="52" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <line x1="78" y1="46" x2="94" y2="36" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
-            <line x1="78" y1="50" x2="94" y2="52" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-sol">Sol</span><br>Superman</div><div class="ex-tip-cell">Bras et jambes décollés — clé pour le sac en Norvège 🎒</div></td>
-          <td class="ex-reps">12</td>
-          <td class="ex-muscle">Bas du dos ★</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                <div class="bg-blue-50 p-4 flex items-center gap-4 border-b border-blue-100">
+                    <span class="text-2xl bg-white w-10 h-10 flex items-center justify-center rounded-xl shadow-sm">💪</span>
+                    <div>
+                        <h3 class="font-condensed font-bold text-lg leading-none">Mardi — Circuit TRX</h3>
+                        <p class="text-[10px] text-blue-600 uppercase font-bold mt-1">Renforcement & Gainage</p>
+                    </div>
+                </div>
+                <table class="w-full text-xs">
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="p-3 font-bold">TRX Row (Dos)</td>
+                            <td class="p-3 text-right text-norway-orange font-bold text-base">12 reps</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold">TRX Chest Press</td>
+                            <td class="p-3 text-right text-norway-orange font-bold text-base">12 reps</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-  <!-- MERCREDI -->
-  <div class="session">
-    <div class="session-head" style="background:#f0fdf4">
-      <div class="session-icon" style="background:#dcfce7">🚴</div>
-      <div>
-        <div class="session-title">Mercredi — Zone 2 Home trainer</div>
-        <div class="session-meta">Brûle les graisses en profondeur · ~125 bpm</div>
-      </div>
-    </div>
-    <div class="cardio-block">
-      <div class="cardio-row"><span class="cardio-label">Échauffement</span><span class="cardio-val">5 min · résistance légère</span></div>
-      <div class="cardio-row"><span class="cardio-label">Zone 2 — 45 min</span><span class="cardio-val">~125 bpm · tu peux parler, mais c'est laborieux</span></div>
-      <div class="cardio-row"><span class="cardio-label">Retour au calme + étirements</span><span class="cardio-val">10 min</span></div>
-    </div>
-    <div class="tip">La Zone 2 est la zone qui brûle le plus de graisses en proportion. Moins spectaculaire que le HIIT mais très efficace sur la durée.</div>
-  </div>
+        <section id="tab-nutrition" class="tab-content space-y-6">
+            <div class="grid grid-cols-3 gap-3">
+                <div class="bg-navy text-white p-4 rounded-2xl text-center">
+                    <span class="font-condensed text-3xl font-bold">1800</span>
+                    <span class="block text-[10px] text-slate-400 uppercase">kcal/jour</span>
+                </div>
+                <div class="bg-white border border-slate-200 p-4 rounded-2xl text-center">
+                    <span class="font-condensed text-3xl font-bold text-blue-600">160g</span>
+                    <span class="block text-[10px] text-slate-400 uppercase">Protéines</span>
+                </div>
+                <div class="bg-white border border-slate-200 p-4 rounded-2xl text-center">
+                    <span class="font-condensed text-3xl font-bold text-emerald-600">~1kg</span>
+                    <span class="block text-[10px] text-slate-400 uppercase">/semaine</span>
+                </div>
+            </div>
 
-  <!-- VENDREDI -->
-  <div class="session">
-    <div class="session-head" style="background:#faf5ff">
-      <div class="session-icon" style="background:#ede9fe">⚡</div>
-      <div>
-        <div class="session-title">Vendredi — HIIT Home trainer</div>
-        <div class="session-meta">Tabata · 20 sec sprint max / 10 sec repos × 8 · Puis 2 min récup · × 4</div>
-      </div>
-    </div>
-    <div class="cardio-block">
-      <div class="cardio-row"><span class="cardio-label">Échauffement</span><span class="cardio-val">8 min</span></div>
-      <div class="cardio-row"><span class="cardio-label">Tabata Bloc 1</span><span class="cardio-val">8 rounds × (20 sec max / 10 sec repos) → 2 min récup</span></div>
-      <div class="cardio-row"><span class="cardio-label">Tabata Bloc 2</span><span class="cardio-val">idem</span></div>
-      <div class="cardio-row"><span class="cardio-label">Tabata Blocs 3 & 4</span><span class="cardio-val">idem</span></div>
-      <div class="cardio-row"><span class="cardio-label">Retour au calme + étirements</span><span class="cardio-val">10 min</span></div>
-    </div>
-  </div>
+            <div class="space-y-3">
+                <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-sm">🍳 Petit-Déjeuner</h4>
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded-lg font-bold">450 KCAL</span>
+                    </div>
+                    <p class="text-xs text-slate-500 leading-relaxed">3 œufs brouillés + 2 tranches pain complet + café noir. Focus protéines post-entraînement.</p>
+                </div>
+                </div>
+        </section>
 
-  <!-- SAMEDI -->
-  <div class="session">
-    <div class="session-head" style="background:#fffbeb">
-      <div class="session-icon" style="background:#fef3c7">🦵</div>
-      <div>
-        <div class="session-title">Samedi — Circuit Total Body</div>
-        <div class="session-meta">Spécial Norvège · Jambes + dos + gainage · 4 tours · 60 sec repos</div>
-      </div>
-    </div>
-    <table class="ex-table">
-      <thead><tr><th></th><th>Exercice</th><th>Reps</th><th>Muscles</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 92">
-            <line x1="10" y1="88" x2="100" y2="88" stroke="#e5e2d9" stroke-width="1.5"/>
-            <polygon points="55,1 44,12 56,12" fill="#b45309"/>
-            <line x1="55" y1="12" x2="55" y2="20" stroke="#b45309" stroke-width="2"/>
-            <ellipse cx="33" cy="88" rx="12" ry="4" fill="#444"/>
-            <ellipse cx="77" cy="88" rx="12" ry="4" fill="#444"/>
-            <line x1="33" y1="84" x2="28" y2="62" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="77" y1="84" x2="82" y2="62" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="28" y1="62" x2="42" y2="44" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <line x1="82" y1="62" x2="68" y2="44" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <rect x="40" y="28" width="30" height="20" rx="5" fill="#2563eb"/>
-            <line x1="40" y1="34" x2="30" y2="28" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <line x1="70" y1="34" x2="80" y2="28" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="55" cy="18" r="9" fill="#f5c5a0"/>
-            <path d="M46 14 Q55 6 64 14 Q60 9 55 8 Q50 9 46 14Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-corps">Corps</span><br>Squat sauté</div><div class="ex-tip-cell">Atterrir en douceur, genoux fléchis</div></td>
-          <td class="ex-reps">12</td>
-          <td class="ex-muscle">Cuisses · Cardio</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 110">
-            <rect x="44" y="3" width="22" height="5" rx="2" fill="#888"/>
-            <line x1="50" y1="8" x2="36" y2="44" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-            <line x1="60" y1="8" x2="40" y2="48" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-            <line x1="5" y1="104" x2="105" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-            <ellipse cx="72" cy="104" rx="14" ry="4" fill="#444"/>
-            <line x1="72" y1="100" x2="70" y2="80" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="70" y1="80" x2="64" y2="62" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <rect x="50" y="48" width="20" height="22" rx="5" fill="#2563eb" transform="rotate(-35,60,59)"/>
-            <line x1="48" y1="52" x2="37" y2="46" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="78" cy="42" r="10" fill="#f5c5a0"/>
-            <path d="M68 38 Q78 29 88 38 Q83 33 78 32 Q73 33 68 38Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-trx">TRX</span><br>TRX Row</div><div class="ex-tip-cell">Dos = porte-sac · exercice clé pour la Norvège 🎒</div></td>
-          <td class="ex-reps">12</td>
-          <td class="ex-muscle">Dos ★</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 110">
-            <line x1="5" y1="104" x2="70" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-            <rect x="66" y="80" width="36" height="24" rx="3" fill="#c8b89a" stroke="#a89272" stroke-width="1.5"/>
-            <rect x="68" y="76" width="32" height="6" rx="2" fill="#a89272"/>
-            <ellipse cx="84" cy="76" rx="10" ry="3.5" fill="#444"/>
-            <ellipse cx="32" cy="104" rx="13" ry="4" fill="#444"/>
-            <line x1="32" y1="100" x2="31" y2="76" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="31" y1="76" x2="50" y2="54" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <circle cx="31" cy="76" r="3.5" fill="#fff" stroke="#1d4ed8" stroke-width="1.5"/>
-            <line x1="84" y1="75" x2="68" y2="55" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <rect x="42" y="36" width="22" height="22" rx="5" fill="#2563eb"/>
-            <line x1="42" y1="42" x2="34" y2="56" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <line x1="64" y1="42" x2="72" y2="56" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="53" cy="27" r="10" fill="#f5c5a0"/>
-            <path d="M43 23 Q53 14 63 23 Q58 18 53 17 Q48 18 43 23Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-corps">Corps</span><br>Fente bulgare</div><div class="ex-tip-cell">Pied arrière sur une chaise, descente lente</div></td>
-          <td class="ex-reps">10/jambe</td>
-          <td class="ex-muscle">Cuisses · Équilibre</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 110">
-            <line x1="5" y1="104" x2="105" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-            <ellipse cx="52" cy="104" rx="12" ry="4" fill="#444"/>
-            <line x1="52" y1="100" x2="52" y2="72" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <rect x="40" y="44" width="24" height="30" rx="6" fill="#2563eb"/>
-            <line x1="40" y1="52" x2="30" y2="64" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <line x1="64" y1="52" x2="74" y2="64" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-            <line x1="52" y1="80" x2="82" y2="70" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <line x1="82" y1="70" x2="88" y2="80" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <path d="M52 100 Q70 95 85 80" stroke="#16a34a" stroke-width="2.5" fill="none" stroke-dasharray="3,2"/>
-            <circle cx="52" cy="34" r="10" fill="#f5c5a0"/>
-            <path d="M42 30 Q52 21 62 30 Q57 25 52 24 Q47 25 42 30Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-elast">Élastique</span><br>Abduction hanche</div><div class="ex-tip-cell">Élastique aux chevilles, lever la jambe</div></td>
-          <td class="ex-reps">15/côté</td>
-          <td class="ex-muscle">Fessiers · Genou</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 75">
-            <line x1="5" y1="68" x2="105" y2="68" stroke="#e5e2d9" stroke-width="1.5"/>
-            <ellipse cx="20" cy="68" rx="7" ry="3" fill="#e8a87c"/>
-            <ellipse cx="78" cy="68" rx="7" ry="3" fill="#e8a87c"/>
-            <line x1="20" y1="65" x2="24" y2="52" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-            <line x1="78" y1="65" x2="74" y2="52" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-            <line x1="24" y1="52" x2="30" y2="42" stroke="#e8a87c" stroke-width="6" stroke-linecap="round"/>
-            <line x1="74" y1="52" x2="68" y2="42" stroke="#e8a87c" stroke-width="6" stroke-linecap="round"/>
-            <rect x="27" y="36" width="56" height="14" rx="5" fill="#2563eb"/>
-            <line x1="83" y1="43" x2="88" y2="58" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <line x1="88" y1="58" x2="88" y2="68" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
-            <ellipse cx="88" cy="68" rx="7" ry="3" fill="#444"/>
-            <circle cx="16" cy="33" r="10" fill="#f5c5a0"/>
-            <path d="M6 28 Q16 19 26 28 Q21 23 16 22 Q11 23 6 28Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-corps">Corps</span><br>Pompes</div><div class="ex-tip-cell">Corps aligné de la tête aux talons</div></td>
-          <td class="ex-reps">10–15</td>
-          <td class="ex-muscle">Pectoraux · Épaules</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 75">
-            <line x1="5" y1="68" x2="105" y2="68" stroke="#e5e2d9" stroke-width="1.5"/>
-            <ellipse cx="16" cy="68" rx="7" ry="3" fill="#e8a87c"/>
-            <ellipse cx="40" cy="68" rx="7" ry="3" fill="#e8a87c"/>
-            <line x1="16" y1="65" x2="18" y2="48" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-            <line x1="40" y1="65" x2="36" y2="48" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-            <rect x="24" y="38" width="56" height="14" rx="5" fill="#2563eb"/>
-            <line x1="80" y1="45" x2="86" y2="58" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
-            <line x1="86" y1="58" x2="88" y2="68" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
-            <ellipse cx="88" cy="68" rx="8" ry="3" fill="#444"/>
-            <line x1="72" y1="44" x2="56" y2="55" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
-            <line x1="56" y1="55" x2="52" y2="65" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
-            <circle cx="56" cy="55" r="3.5" fill="#fff" stroke="#1d4ed8" stroke-width="1.5"/>
-            <circle cx="14" cy="32" r="9" fill="#f5c5a0"/>
-            <path d="M5 28 Q14 20 23 28 Q19 23 14 22 Q9 23 5 28Z" fill="#5c3d1e"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-sol">Sol</span><br>Mountain climbers</div><div class="ex-tip-cell">Genou sous la poitrine, alterner rapidement</div></td>
-          <td class="ex-reps">20 total</td>
-          <td class="ex-muscle">Gainage · Cardio</td>
-        </tr>
-        <tr>
-          <td><svg class="ex-illus" viewBox="0 0 110 78">
-            <line x1="5" y1="73" x2="105" y2="73" stroke="#e5e2d9" stroke-width="1.5"/>
-            <circle cx="14" cy="67" r="9" fill="#f5c5a0"/>
-            <path d="M5 63 Q14 55 23 63 Q19 58 14 57 Q9 58 5 63Z" fill="#5c3d1e"/>
-            <line x1="22" y1="72" x2="42" y2="72" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="22" y1="72" x2="12" y2="73" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-            <path d="M42 72 Q55 42 68 58" fill="none" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-            <line x1="68" y1="58" x2="80" y2="68" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <line x1="80" y1="68" x2="80" y2="73" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-            <ellipse cx="80" cy="73" rx="12" ry="3.5" fill="#444"/>
-          </svg></td>
-          <td><div class="ex-name-cell"><span class="tag tag-sol">Sol</span><br>Pont fessier</div><div class="ex-tip-cell">Serrer les fessiers en haut 1 seconde</div></td>
-          <td class="ex-reps">15</td>
-          <td class="ex-muscle">Fessiers · Bas du dos</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+        <section id="tab-tracking" class="tab-content">
+            <div id="weeks-container-tailwind" class="space-y-3">
+                </div>
+        </section>
 
-<!-- TAB 3: EXERCISES -->
-<div id="tab-exercises" class="section">
-  <div class="section-header" style="margin-top:16px">
-    <h2>Bibliothèque des exercices</h2>
-    <p>Clique sur chaque fiche pour voir les détails · étapes · erreurs à éviter</p>
-  </div>
+    </main>
 
-<style>
-.ex-detail-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
-.ex-detail-head{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;user-select:none}
-.ex-detail-head:hover{background:#fafaf8}
-.ex-detail-svg{flex-shrink:0;width:72px;height:72px}
-.ex-detail-info{flex:1}
-.ex-detail-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;margin-bottom:2px}
-.ex-detail-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:4px}
-.ex-detail-muscle{font-size:11px;color:var(--muted)}
-.ex-detail-chevron{font-size:16px;color:var(--muted);transition:transform .2s;flex-shrink:0}
-.ex-detail-chevron.open{transform:rotate(90deg)}
-.ex-detail-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border)}
-.ex-detail-body.open{display:block}
-.ex-steps{margin:12px 0 0;list-style:none;display:flex;flex-direction:column;gap:8px}
-.ex-steps li{display:flex;gap:10px;font-size:12px;line-height:1.5}
-.step-num{width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
-.ex-blocks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-@media(max-width:480px){.ex-blocks{grid-template-columns:1fr}}
-.ex-block{border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6}
-.ex-block-title{font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
-.block-tip{background:#f0fdf4;border:1px solid #bbf7d0}
-.block-tip .ex-block-title{color:var(--green)}
-.block-warn{background:#fef2f2;border:1px solid #fecaca}
-.block-warn .ex-block-title{color:var(--red)}
-.cat-divider{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;margin:20px 0 10px}
-.cat-divider::after{content:'';flex:1;height:.5px;background:var(--border)}
-</style>
+    <script>
+        function showTab(tabId, btn) {
+            // Masquer tous les contenus
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Retirer la classe active de tous les boutons
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                b.classList.remove('active');
+            });
 
-<script>
-function toggleEx(id) {
-  const body = document.getElementById('ex-body-' + id);
-  const chev = document.getElementById('ex-chev-' + id);
-  body.classList.toggle('open');
-  chev.classList.toggle('open');
-}
-</script>
+            // Afficher le contenu sélectionné
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            // Activer le bouton cliqué
+            btn.classList.add('active');
+        }
 
-<div class="cat-divider" style="color:var(--blue)">TRX — Sangles de suspension</div>
+        // Script pour générer les semaines de suivi (version Tailwind)
+        const trackContainer = document.getElementById('weeks-container-tailwind');
+        const weekData = [
+            {n:'1', date:'14 avr', weight:'93kg'},
+            {n:'2', date:'21 avr', weight:''},
+            {n:'3', date:'28 avr', weight:''},
+            {n:'4', date:'05 mai', weight:''},
+        ];
 
-<!-- TRX ROW -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('trxrow')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 110">
-      <rect x="44" y="3" width="22" height="5" rx="2" fill="#888"/>
-      <line x1="50" y1="8" x2="36" y2="44" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-      <line x1="60" y1="8" x2="40" y2="48" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-      <line x1="5" y1="104" x2="105" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-      <ellipse cx="72" cy="104" rx="14" ry="4" fill="#444"/>
-      <line x1="72" y1="100" x2="70" y2="80" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="70" y1="80" x2="64" y2="62" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <rect x="50" y="48" width="20" height="22" rx="5" fill="#2563eb" transform="rotate(-35,60,59)"/>
-      <line x1="48" y1="52" x2="37" y2="46" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="46" y1="55" x2="38" y2="50" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="78" cy="42" r="10" fill="#f5c5a0"/>
-      <path d="M68 38 Q78 29 88 38 Q83 33 78 32 Q73 33 68 38Z" fill="#5c3d1e"/>
-      <circle cx="74" cy="41" r="1.5" fill="#555"/><circle cx="82" cy="41" r="1.5" fill="#555"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-trx">TRX</span></div>
-      <div class="ex-detail-name">TRX Row</div>
-      <div class="ex-detail-muscle">Dos · Biceps · Gainage · 12 reps × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-trxrow">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-trxrow">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Accroche les sangles et règle-les à hauteur de poitrine. Attrape les poignées, paumes face à face.</div></li>
-      <li><div class="step-num">2</div><div>Avance les pieds vers l'ancrage et incline ton corps en arrière à ~45°. Bras tendus, corps en ligne droite comme une planche.</div></li>
-      <li><div class="step-num">3</div><div>En serrant les omoplates ensemble, plie les coudes et tire le corps vers le haut jusqu'à ce que les mains touchent les côtes.</div></li>
-      <li><div class="step-num">4</div><div>Redescends lentement en contrôlant (2–3 sec). Garde le corps toujours droit — pas de fesses qui se lèvent.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Corps rigide de la tête aux talons<br>Coudes près du corps<br>Regarder vers le haut, pas les pieds<br>Serrer le dos fort en haut
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Fesses qui tombent (= gainage lâché)<br>Coudes qui s'écartent sur les côtés<br>Épaules qui montent aux oreilles<br>Descente trop rapide sans contrôle
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- TRX CHEST PRESS -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('trxchest')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 110">
-      <rect x="4" y="8" width="16" height="5" rx="2" fill="#888"/>
-      <line x1="10" y1="13" x2="26" y2="50" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-      <line x1="16" y1="13" x2="30" y2="54" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-      <line x1="5" y1="104" x2="105" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-      <ellipse cx="88" cy="104" rx="14" ry="4" fill="#444"/>
-      <line x1="88" y1="100" x2="82" y2="78" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="82" y1="78" x2="74" y2="60" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <rect x="46" y="44" width="32" height="18" rx="5" fill="#2563eb" transform="rotate(-20,62,53)"/>
-      <line x1="50" y1="50" x2="36" y2="55" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-      <line x1="36" y1="55" x2="28" y2="50" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="30" cy="38" r="10" fill="#f5c5a0"/>
-      <path d="M20 34 Q30 25 40 34 Q35 29 30 28 Q25 29 20 34Z" fill="#5c3d1e"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-trx">TRX</span></div>
-      <div class="ex-detail-name">TRX Chest Press</div>
-      <div class="ex-detail-muscle">Pectoraux · Triceps · Épaules · 12 reps × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-trxchest">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-trxchest">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Face à l'ancrage (dos à la salle). Attrape les poignées, mains à hauteur d'épaule, coudes pliés. Recule les pieds pour créer l'angle — plus tu recules, plus c'est difficile.</div></li>
-      <li><div class="step-num">2</div><div>Corps incliné en avant, comme une pompe debout. Bras pliés, poitrines vers les poignées.</div></li>
-      <li><div class="step-num">3</div><div>Pousse les bras pour les tendre devant toi, en propulsant le corps vers l'arrière. Garde le tronc verrouillé.</div></li>
-      <li><div class="step-num">4</div><div>Reviens lentement à la position de départ, en contrôlant la descente.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Coudes à 45° du corps (pas à 90°)<br>Corps aligné comme une planche<br>Expiré en poussant
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Hanches qui avancent seules<br>Coudes trop écartés (blessure épaule)<br>Tête qui plonge en avant
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- TRX SQUAT ASSISTÉ -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('trxsquat')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 110">
-      <rect x="44" y="3" width="22" height="5" rx="2" fill="#888"/>
-      <line x1="50" y1="8" x2="36" y2="28" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-      <line x1="60" y1="8" x2="74" y2="28" stroke="#185FA5" stroke-width="2" stroke-dasharray="4,2"/>
-      <line x1="10" y1="102" x2="100" y2="102" stroke="#e5e2d9" stroke-width="1.5"/>
-      <ellipse cx="33" cy="102" rx="12" ry="4" fill="#444"/>
-      <ellipse cx="77" cy="102" rx="12" ry="4" fill="#444"/>
-      <line x1="33" y1="98" x2="28" y2="75" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="77" y1="98" x2="82" y2="75" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="28" y1="75" x2="42" y2="57" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <line x1="82" y1="75" x2="68" y2="57" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <rect x="40" y="40" width="30" height="20" rx="5" fill="#2563eb"/>
-      <line x1="40" y1="46" x2="36" y2="28" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="70" y1="46" x2="74" y2="28" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="55" cy="30" r="10" fill="#f5c5a0"/>
-      <path d="M45 26 Q55 17 65 26 Q60 21 55 20 Q50 21 45 26Z" fill="#5c3d1e"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-trx">TRX</span></div>
-      <div class="ex-detail-name">TRX Squat assisté</div>
-      <div class="ex-detail-muscle">Cuisses · Fessiers · Équilibre · 15 reps × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-trxsquat">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-trxsquat">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Face à l'ancrage. Pieds largeur d'épaules, orteils légèrement en dehors. Attrape les poignées, bras tendus devant toi.</div></li>
-      <li><div class="step-num">2</div><div>Descends comme pour un squat normal : hanches en arrière, genoux dans l'axe des orteils, dos droit. Les sangles t'aident à garder l'équilibre.</div></li>
-      <li><div class="step-num">3</div><div>Descends jusqu'à ce que les cuisses soient parallèles au sol (ou plus bas si tu peux). Idéalement cuisses parallèles au sol minimum.</div></li>
-      <li><div class="step-num">4</div><div>Remonte en poussant dans les talons, en gardant la poitrine haute. Expirer en remontant.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Talons toujours au sol<br>Genoux dans l'axe des orteils<br>Poitrine haute, regard droit devant
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Genoux qui rentrent vers l'intérieur<br>Dos qui s'arrondit en bas<br>Talons qui se lèvent
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="cat-divider" style="color:var(--green)">Élastiques</div>
-
-<!-- CURL BICEPS ÉLASTIQUE -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('curl')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 110">
-      <line x1="10" y1="104" x2="100" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-      <path d="M32 104 Q55 112 78 104" stroke="#16a34a" stroke-width="3" fill="none"/>
-      <ellipse cx="32" cy="104" rx="11" ry="3.5" fill="#444"/><ellipse cx="78" cy="104" rx="11" ry="3.5" fill="#444"/>
-      <line x1="32" y1="100" x2="34" y2="72" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="78" y1="100" x2="76" y2="72" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <rect x="42" y="44" width="26" height="32" rx="6" fill="#2563eb"/>
-      <line x1="42" y1="52" x2="38" y2="72" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-      <line x1="68" y1="52" x2="72" y2="72" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-      <line x1="38" y1="72" x2="44" y2="56" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-      <line x1="72" y1="72" x2="66" y2="56" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="55" cy="34" r="10" fill="#f5c5a0"/>
-      <path d="M45 30 Q55 21 65 30 Q60 25 55 24 Q50 25 45 30Z" fill="#5c3d1e"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-elast">Élastique</span></div>
-      <div class="ex-detail-name">Curl biceps</div>
-      <div class="ex-detail-muscle">Biceps · 15 reps × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-curl">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-curl">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Debout, pieds sur l'élastique (largeur d'épaules pour plus de tension). Attrape une extrémité de chaque main, paumes vers le haut.</div></li>
-      <li><div class="step-num">2</div><div>Coudes collés contre les flancs — ils ne bougent pas du tout pendant l'exercice. C'est le point fixe.</div></li>
-      <li><div class="step-num">3</div><div>Plie les avant-bras en amenant les mains vers les épaules. Monte jusqu'à ce que les biceps soient bien contractés.</div></li>
-      <li><div class="step-num">4</div><div>Redescends lentement (3 sec) — la phase de descente travaille autant que la montée.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Coudes immobiles tout le long<br>Monter lentement, descendre encore plus lentement<br>Poignets droits (ni fléchis, ni en arrière)
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Balancer le dos pour aider (= triche !)<br>Coudes qui avancent en montant<br>Descente trop rapide = perte du bénéfice
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ROWING DEBOUT ÉLASTIQUE -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('rowing')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 110">
-      <circle cx="8" cy="68" r="5" fill="#888"/>
-      <line x1="13" y1="68" x2="36" y2="62" stroke="#16a34a" stroke-width="2.5"/>
-      <line x1="8" y1="104" x2="105" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-      <ellipse cx="62" cy="104" rx="14" ry="4" fill="#444"/>
-      <line x1="62" y1="100" x2="60" y2="78" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <rect x="40" y="46" width="24" height="20" rx="5" fill="#2563eb" transform="rotate(-45,52,56)"/>
-      <line x1="42" y1="60" x2="36" y2="62" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-      <line x1="36" y1="62" x2="36" y2="72" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="34" cy="42" r="10" fill="#f5c5a0"/>
-      <path d="M24 38 Q34 29 44 38 Q39 33 34 32 Q29 33 24 38Z" fill="#5c3d1e"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-elast">Élastique</span></div>
-      <div class="ex-detail-name">Rowing debout</div>
-      <div class="ex-detail-muscle">Dos · Épaules · Biceps · 12 reps × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-rowing">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-rowing">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Fixe l'élastique à un point bas (porte, meuble lourd). Attrape les deux extrémités, debout face à l'ancrage.</div></li>
-      <li><div class="step-num">2</div><div>Penche le buste à ~45° en avant, dos plat, genoux légèrement fléchis. Bras tendus vers le bas.</div></li>
-      <li><div class="step-num">3</div><div>Tire les coudes vers le haut et en arrière, en serrant les omoplates. Coudes montrent vers le plafond en haut du mouvement.</div></li>
-      <li><div class="step-num">4</div><div>Redescends les bras lentement tout en gardant le dos immobile.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Serrer les omoplates en haut<br>Dos plat tout le long (pas arrondi)<br>Coudes montrent vers le plafond
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Se redresser avec les lombaires pour aider<br>Tirer avec les bras plutôt que le dos<br>Épaules qui montent aux oreilles
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ABDUCTION HANCHE -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('abduc')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 110">
-      <line x1="5" y1="104" x2="105" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-      <ellipse cx="52" cy="104" rx="12" ry="4" fill="#444"/>
-      <line x1="52" y1="100" x2="52" y2="72" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <rect x="40" y="44" width="24" height="30" rx="6" fill="#2563eb"/>
-      <line x1="40" y1="52" x2="30" y2="64" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="64" y1="52" x2="74" y2="64" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="52" y1="80" x2="82" y2="70" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <line x1="82" y1="70" x2="88" y2="80" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <path d="M52 100 Q70 95 85 80" stroke="#16a34a" stroke-width="2.5" fill="none" stroke-dasharray="3,2"/>
-      <circle cx="52" cy="34" r="10" fill="#f5c5a0"/>
-      <path d="M42 30 Q52 21 62 30 Q57 25 52 24 Q47 25 42 30Z" fill="#5c3d1e"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-elast">Élastique</span></div>
-      <div class="ex-detail-name">Abduction hanche</div>
-      <div class="ex-detail-muscle">Fessiers · Stabilité genou · 15 reps/côté × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-abduc">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-abduc">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Fixe l'élastique autour des deux chevilles. Debout sur un pied, main contre un mur pour l'équilibre si besoin.</div></li>
-      <li><div class="step-num">2</div><div>Pied de travail légèrement décollé du sol. Jambe d'appui légèrement fléchie.</div></li>
-      <li><div class="step-num">3</div><div>Lève la jambe de côté — pied souple, jambe presque droite — jusqu'à environ 45° maximum. Le bassin reste horizontal, ne se penche pas.</div></li>
-      <li><div class="step-num">4</div><div>Reviens lentement à la position de départ. Fais les 15 reps d'un côté puis change.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Bassin stable et horizontal<br>Mouvement lent et contrôlé<br>Gainage actif pour ne pas se pencher
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Se pencher du côté opposé pour monter plus haut<br>Jambe qui plie (= moins d'effort)<br>Balancer pour prendre de l'élan
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="cat-divider" style="color:var(--amber)">Poids du corps</div>
-
-<!-- SQUAT -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('squat')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 92">
-      <line x1="12" y1="88" x2="88" y2="88" stroke="#e5e2d9" stroke-width="1.5"/>
-      <circle cx="55" cy="10" r="8" fill="#f5c5a0"/><path d="M47 6 Q55 -1 63 6" fill="#5c3d1e"/>
-      <line x1="55" y1="18" x2="55" y2="52" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="36" y1="26" x2="64" y2="26" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/>
-      <line x1="36" y1="26" x2="26" y2="46" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="64" y1="26" x2="74" y2="46" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="42" y1="52" x2="58" y2="52" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/>
-      <line x1="42" y1="52" x2="24" y2="72" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <line x1="58" y1="52" x2="76" y2="72" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <line x1="24" y1="72" x2="30" y2="88" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="76" y1="72" x2="70" y2="88" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <circle cx="24" cy="72" r="3" fill="#fff" stroke="#1d4ed8" stroke-width="1.5"/>
-      <circle cx="76" cy="72" r="3" fill="#fff" stroke="#1d4ed8" stroke-width="1.5"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-corps">Corps</span></div>
-      <div class="ex-detail-name">Squat</div>
-      <div class="ex-detail-muscle">Quadriceps · Fessiers · Ischio-jambiers · S1-2: 15 reps × 3 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-squat">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-squat">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Pieds largeur d'épaules ou légèrement plus larges. Orteils pointés légèrement en dehors (30°). Bras devant toi ou croisés sur la poitrine.</div></li>
-      <li><div class="step-num">2</div><div>Inspire, pousse les hanches en arrière (comme pour s'asseoir sur une chaise derrière toi). Garde la poitrine haute et le dos droit.</div></li>
-      <li><div class="step-num">3</div><div>Descends jusqu'à ce que les cuisses soient parallèles au sol minimum. Genoux dans l'axe des orteils, talons au sol.</div></li>
-      <li><div class="step-num">4</div><div>Pousse fort dans les talons pour remonter. Expire en montant. Serre les fessiers en haut.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Talons au sol tout le temps<br>Genoux dans l'axe des orteils<br>Poitrine haute (pas de dos arrondi)<br>Descente jusqu'à cuisses parallèles minimum
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Genoux qui rentrent vers l'intérieur<br>Talons qui se lèvent (manque de mobilité cheville)<br>Dos qui s'arrondit en bas<br>Ne pas descendre assez
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SQUAT SAUTÉ -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('squatjump')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 92">
-      <line x1="12" y1="88" x2="88" y2="88" stroke="#e5e2d9" stroke-width="1.5"/>
-      <polygon points="55,1 48,12 62,12" fill="#b45309"/>
-      <circle cx="55" cy="18" r="8" fill="#f5c5a0"/><path d="M47 14 Q55 7 63 14" fill="#5c3d1e"/>
-      <line x1="55" y1="26" x2="55" y2="56" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="38" y1="33" x2="62" y2="33" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/>
-      <line x1="38" y1="33" x2="28" y2="50" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="62" y1="33" x2="72" y2="50" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="44" y1="56" x2="56" y2="56" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/>
-      <line x1="44" y1="56" x2="26" y2="74" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <line x1="56" y1="56" x2="74" y2="74" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <line x1="26" y1="74" x2="32" y2="88" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="74" y1="74" x2="68" y2="88" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-corps">Corps</span></div>
-      <div class="ex-detail-name">Squat sauté</div>
-      <div class="ex-detail-muscle">Cuisses · Fessiers · Cardio explosif · 12 reps × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-squatjump">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-squatjump">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Position squat de départ. Descends jusqu'aux cuisses parallèles au sol.</div></li>
-      <li><div class="step-num">2</div><div>Sans pause en bas, pousse fort dans les deux pieds et saute le plus haut possible. Bras vers le haut pour l'élan.</div></li>
-      <li><div class="step-num">3</div><div>Atterris <strong>en douceur</strong> sur les orteils puis les talons. Genoux légèrement fléchis pour absorber le choc — jamais jambes tendues à l'atterrissage.</div></li>
-      <li><div class="step-num">4</div><div>Enchaîne immédiatement le prochain squat sauté sans pause.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Atterrissage silencieux et contrôlé<br>Genoux fléchis à l'atterrissage<br>Sur orteils d'abord, pas les talons
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Atterrir sur des jambes raides (blessure genou)<br>Atterrir talons en premier (impact fort)<br>Manque de profondeur avant le saut
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FENTE AVANT -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('lunge')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 110">
-      <line x1="5" y1="104" x2="105" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-      <circle cx="55" cy="10" r="9" fill="#f5c5a0"/><path d="M46 6 Q55 -1 64 6" fill="#5c3d1e"/>
-      <line x1="55" y1="19" x2="55" y2="56" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="40" y1="27" x2="60" y2="27" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/>
-      <line x1="40" y1="27" x2="36" y2="46" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="60" y1="27" x2="64" y2="46" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="48" y1="56" x2="62" y2="56" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/>
-      <line x1="48" y1="56" x2="66" y2="74" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <line x1="66" y1="74" x2="62" y2="88" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="62" y1="56" x2="36" y2="72" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <line x1="36" y1="72" x2="40" y2="88" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <circle cx="36" cy="72" r="3" fill="#fff" stroke="#1d4ed8" stroke-width="1.5"/>
-      <path d="M66 81 L72 81 L72 74" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-corps">Corps</span></div>
-      <div class="ex-detail-name">Fente avant</div>
-      <div class="ex-detail-muscle">Quadriceps · Fessiers · Équilibre · 10 reps/jambe × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-lunge">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-lunge">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Debout, pieds hip-width. Mains sur les hanches ou devant toi pour l'équilibre.</div></li>
-      <li><div class="step-num">2</div><div>Fais un grand pas en avant avec le pied droit. Le pied atterrit à plat, talon en premier.</div></li>
-      <li><div class="step-num">3</div><div>Plie les deux genoux jusqu'à un angle de 90°. Le genou avant reste au-dessus de la cheville (jamais devant le pied). Le genou arrière effleure le sol sans le toucher.</div></li>
-      <li><div class="step-num">4</div><div>Pousse dans le talon avant pour revenir à la position initiale. Alterne gauche/droite.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Les deux genoux forment un angle de 90°<br>Genou avant au-dessus de la cheville<br>Torse droit, regard devant<br>Grand pas (ni trop court, ni trop long)
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Genou avant qui dépasse les orteils<br>Genou arrière qui touche le sol avec force<br>Se pencher en avant avec le torse<br>Pas trop court → genou avant trop fléchi
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FENTE BULGARE -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('bulgarian')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 110">
-      <line x1="5" y1="104" x2="70" y2="104" stroke="#e5e2d9" stroke-width="1.5"/>
-      <rect x="66" y="80" width="36" height="24" rx="3" fill="#c8b89a" stroke="#a89272" stroke-width="1.5"/>
-      <rect x="68" y="76" width="32" height="6" rx="2" fill="#a89272"/>
-      <ellipse cx="84" cy="76" rx="10" ry="3.5" fill="#444"/>
-      <ellipse cx="32" cy="104" rx="13" ry="4" fill="#444"/>
-      <line x1="32" y1="100" x2="31" y2="76" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="31" y1="76" x2="50" y2="54" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <circle cx="31" cy="76" r="3.5" fill="#fff" stroke="#1d4ed8" stroke-width="1.5"/>
-      <line x1="84" y1="75" x2="68" y2="55" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <rect x="42" y="36" width="22" height="22" rx="5" fill="#2563eb"/>
-      <line x1="42" y1="42" x2="34" y2="56" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="64" y1="42" x2="72" y2="56" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="53" cy="27" r="10" fill="#f5c5a0"/>
-      <path d="M43 23 Q53 14 63 23 Q58 18 53 17 Q48 18 43 23Z" fill="#5c3d1e"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-corps">Corps</span></div>
-      <div class="ex-detail-name">Fente bulgare</div>
-      <div class="ex-detail-muscle">Quadriceps · Fessiers · Équilibre profond · 10 reps/jambe × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-bulgarian">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-bulgarian">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Dos à la chaise (~50–60 cm). Place le dessus du pied arrière sur le bord de la chaise (cou-de-pied appuyé). Pied avant à environ 60 cm de la chaise.</div></li>
-      <li><div class="step-num">2</div><div>Mains sur les hanches. Descends en pliant le genou avant, le genou arrière pointe vers le sol.</div></li>
-      <li><div class="step-num">3</div><div>Descends jusqu'à ce que la cuisse avant soit parallèle au sol. Genou avant reste derrière les orteils.</div></li>
-      <li><div class="step-num">4</div><div>Pousse dans le talon avant pour remonter. Tout le poids est sur la jambe avant — la jambe arrière est là uniquement pour l'équilibre.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        95% du poids sur la jambe avant<br>Torse légèrement incliné en avant (fessiers++) ou droit (quadriceps++)<br>Descente lente et contrôlée
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Pied avant trop près de la chaise (genou fléchit trop)<br>Pousser avec la jambe arrière<br>Genou avant qui rentre vers l'intérieur
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- POMPES -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('pushup')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 75">
-      <line x1="5" y1="68" x2="105" y2="68" stroke="#e5e2d9" stroke-width="1.5"/>
-      <ellipse cx="20" cy="68" rx="7" ry="3" fill="#e8a87c"/><ellipse cx="78" cy="68" rx="7" ry="3" fill="#e8a87c"/>
-      <line x1="20" y1="65" x2="24" y2="52" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-      <line x1="78" y1="65" x2="74" y2="52" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-      <line x1="24" y1="52" x2="30" y2="42" stroke="#e8a87c" stroke-width="6" stroke-linecap="round"/>
-      <line x1="74" y1="52" x2="68" y2="42" stroke="#e8a87c" stroke-width="6" stroke-linecap="round"/>
-      <rect x="27" y="36" width="56" height="14" rx="5" fill="#2563eb"/>
-      <line x1="14" y1="43" x2="96" y2="43" stroke="#60a5fa" stroke-width="1" stroke-dasharray="3,2" opacity="0.4"/>
-      <line x1="83" y1="43" x2="88" y2="58" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <line x1="88" y1="58" x2="88" y2="68" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
-      <ellipse cx="88" cy="68" rx="7" ry="3" fill="#444"/>
-      <circle cx="16" cy="33" r="10" fill="#f5c5a0"/>
-      <path d="M6 28 Q16 19 26 28 Q21 23 16 22 Q11 23 6 28Z" fill="#5c3d1e"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-corps">Corps</span></div>
-      <div class="ex-detail-name">Pompes</div>
-      <div class="ex-detail-muscle">Pectoraux · Triceps · Épaules avant · 10–15 reps × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-pushup">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-pushup">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Mains à largeur d'épaules (ou un peu plus larges), doigts pointés vers l'avant. Orteils au sol. Corps en planche parfaite : oreilles–épaules–hanches–chevilles en ligne droite.</div></li>
-      <li><div class="step-num">2</div><div>Inspire et descends lentement en pliant les coudes. Les coudes s'écartent à environ 45° du corps (ni collés, ni à 90°).</div></li>
-      <li><div class="step-num">3</div><div>Descends jusqu'à ce que la poitrine frôle le sol (1–2 cm). Tête dans l'axe du corps — ne regarde pas le sol.</div></li>
-      <li><div class="step-num">4</div><div>Pousse fort pour remonter. Expire. Garde le tronc verrouillé tout le long.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Corps rigide comme une planche<br>Coudes à 45° du corps<br>Descendre jusqu'en bas vraiment<br>Si difficile : pompes genoux au sol OK
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Fesses en l'air (= tricherie)<br>Coudes trop écartés à 90° (blessure épaule)<br>Ne pas descendre jusqu'en bas<br>Tête qui remonte seule avant le corps
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="cat-divider" style="color:var(--red)">Au sol · Gainage</div>
-
-<!-- PLANCHE -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('plank')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 68">
-      <line x1="5" y1="62" x2="105" y2="62" stroke="#e5e2d9" stroke-width="1.5"/>
-      <ellipse cx="18" cy="62" rx="8" ry="3" fill="#e8a87c"/><ellipse cx="42" cy="62" rx="8" ry="3" fill="#e8a87c"/>
-      <line x1="18" y1="59" x2="22" y2="48" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-      <line x1="42" y1="59" x2="36" y2="48" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-      <rect x="26" y="40" width="58" height="12" rx="5" fill="#2563eb"/>
-      <line x1="14" y1="46" x2="96" y2="46" stroke="#60a5fa" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
-      <ellipse cx="90" cy="62" rx="8" ry="3" fill="#444"/>
-      <line x1="90" y1="59" x2="84" y2="52" stroke="#1d4ed8" stroke-width="6" stroke-linecap="round"/>
-      <circle cx="14" cy="38" r="9" fill="#f5c5a0"/>
-      <path d="M5 34 Q14 26 23 34 Q19 29 14 28 Q9 29 5 34Z" fill="#5c3d1e"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-sol">Sol</span></div>
-      <div class="ex-detail-name">Planche (avant-bras)</div>
-      <div class="ex-detail-muscle">Gainage profond · Abdos · Lombaires · 30 sec × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-plank">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-plank">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Face au sol. Avant-bras à plat, coudes sous les épaules. Poings fermés ou mains à plat.</div></li>
-      <li><div class="step-num">2</div><div>Soulève les hanches jusqu'à ce que le corps soit parfaitement droit. Orteils au sol, talons poussant vers l'arrière.</div></li>
-      <li><div class="step-num">3</div><div>Serre les fessiers, rentre légèrement le nombril, respire normalement. Évite de retenir ta respiration.</div></li>
-      <li><div class="step-num">4</div><div>Tiens le temps imparti. Si tu trembles, c'est normal ! Si la forme casse (fesses en l'air / hanches qui s'affaissent), arrête et reprends.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Corps parfaitement horizontal (vérifier dans un miroir)<br>Fessiers serrés<br>Regard vers le sol à 30 cm devant les mains<br>Respiration lente et régulière
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Fesses trop hautes (pyramide) = trop facile<br>Hanches qui s'affaissent (bas du dos en danger)<br>Retenir sa respiration<br>Épaules qui montent vers les oreilles
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PONT FESSIER -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('bridge')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 78">
-      <line x1="5" y1="73" x2="105" y2="73" stroke="#e5e2d9" stroke-width="1.5"/>
-      <circle cx="14" cy="67" r="9" fill="#f5c5a0"/><path d="M5 63 Q14 55 23 63 Q19 58 14 57 Q9 58 5 63Z" fill="#5c3d1e"/>
-      <line x1="22" y1="72" x2="42" y2="72" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="22" y1="72" x2="12" y2="73" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-      <path d="M42 72 Q55 42 68 58" fill="none" stroke="#1d4ed8" stroke-width="8" stroke-linecap="round"/>
-      <line x1="68" y1="58" x2="80" y2="68" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <line x1="80" y1="68" x2="80" y2="73" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
-      <ellipse cx="80" cy="73" rx="12" ry="3.5" fill="#444"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-sol">Sol</span></div>
-      <div class="ex-detail-name">Pont fessier</div>
-      <div class="ex-detail-muscle">Fessiers · Ischio-jambiers · Bas du dos · 15 reps × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-bridge">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-bridge">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Sur le dos, genoux fléchis à ~90°, pieds à plat au sol à hip-width. Bras le long du corps, paumes vers le bas.</div></li>
-      <li><div class="step-num">2</div><div>Inspire. Pousse dans les talons et soulève le bassin vers le plafond en contractant fort les fessiers.</div></li>
-      <li><div class="step-num">3</div><div>Monte jusqu'à ce que les hanches soient en ligne droite avec les genoux et les épaules. Serre les fessiers à fond en haut — tiens 1 seconde.</div></li>
-      <li><div class="step-num">4</div><div>Redescends lentement vertèbre par vertèbre. Expire en descendant. Ne poses pas complètement les fessiers entre les reps — reste en tension.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Pousser dans les talons (pas les orteils)<br>Serrer les fessiers fort en haut<br>Tenir 1 sec en haut pour maximiser<br>Descente lente vertèbre par vertèbre
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Genoux qui s'écartent (glutes médian faibles)<br>Monter avec les lombaires plutôt que les fessiers<br>Descente trop rapide sans contrôle<br>Pieds trop loin ou trop près des fesses
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SUPERMAN -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('superman')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 70">
-      <line x1="5" y1="65" x2="105" y2="65" stroke="#e5e2d9" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <rect x="32" y="42" width="46" height="12" rx="5" fill="#2563eb"/>
-      <circle cx="15" cy="44" r="9" fill="#f5c5a0"/><path d="M6 40 Q15 32 24 40" fill="#5c3d1e"/>
-      <line x1="32" y1="46" x2="16" y2="36" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-      <line x1="32" y1="50" x2="16" y2="52" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
-      <line x1="78" y1="46" x2="94" y2="36" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
-      <line x1="78" y1="50" x2="94" y2="52" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-sol">Sol</span></div>
-      <div class="ex-detail-name">Superman ★ Clé Norvège</div>
-      <div class="ex-detail-muscle">Lombaires · Fessiers · Ischio-jambiers · 12 reps × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-superman">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-superman">
-    <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:8px 12px;font-size:12px;margin-bottom:10px">🎒 <strong>Pourquoi c'est clé pour la Norvège :</strong> Porter 12 kg de matos photo toute la journée sollicite énormément le bas du dos. Le Superman le renforce directement.</div>
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Allongé à plat ventre sur le tapis. Bras tendus devant toi (comme Superman qui vole). Jambes tendues, pieds joints ou légèrement écartés.</div></li>
-      <li><div class="step-num">2</div><div>Simultanément : soulève les bras ET les jambes du sol en contractant les lombaires et les fessiers. Garde les coudes et les genoux légèrement fléchis.</div></li>
-      <li><div class="step-num">3</div><div>Tiens la position 2 secondes en haut. Ressens le travail dans le bas du dos et les fessiers.</div></li>
-      <li><div class="step-num">4</div><div>Redescends lentement. Pieds qui effleurent le sol entre les reps (ne pose pas complètement).</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Tenir 2 sec en haut pour bien sentir<br>Mouvement lent et contrôlé<br>Contracter fessiers ET lombaires ensemble<br>Respirer normalement
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Aller trop vite sans tenir en haut<br>Mouvement avec les seuls bras (sans les jambes)<br>Forcer excessivement si douleur lombaire aiguë<br>Cou tendu vers le haut (= neutre)
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MOUNTAIN CLIMBERS -->
-<div class="ex-detail-card">
-  <div class="ex-detail-head" onclick="toggleEx('mc')">
-    <svg class="ex-detail-svg" viewBox="0 0 110 75">
-      <line x1="5" y1="68" x2="105" y2="68" stroke="#e5e2d9" stroke-width="1.5"/>
-      <ellipse cx="16" cy="68" rx="7" ry="3" fill="#e8a87c"/><ellipse cx="40" cy="68" rx="7" ry="3" fill="#e8a87c"/>
-      <line x1="16" y1="65" x2="18" y2="48" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-      <line x1="40" y1="65" x2="36" y2="48" stroke="#f5c5a0" stroke-width="5" stroke-linecap="round"/>
-      <rect x="24" y="38" width="56" height="14" rx="5" fill="#2563eb"/>
-      <line x1="80" y1="45" x2="86" y2="58" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
-      <line x1="86" y1="58" x2="88" y2="68" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
-      <ellipse cx="88" cy="68" rx="8" ry="3" fill="#444"/>
-      <line x1="72" y1="44" x2="56" y2="55" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
-      <line x1="56" y1="55" x2="52" y2="65" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
-      <circle cx="56" cy="55" r="3.5" fill="#fff" stroke="#1d4ed8" stroke-width="1.5"/>
-      <ellipse cx="52" cy="66" rx="7" ry="3" fill="#555" opacity="0.7"/>
-      <circle cx="14" cy="32" r="9" fill="#f5c5a0"/><path d="M5 28 Q14 20 23 28" fill="#5c3d1e"/>
-    </svg>
-    <div class="ex-detail-info">
-      <div class="ex-detail-tags"><span class="tag tag-sol">Sol</span></div>
-      <div class="ex-detail-name">Mountain climbers</div>
-      <div class="ex-detail-muscle">Gainage · Cardio · Épaules · 20 reps total × 4 tours</div>
-    </div>
-    <div class="ex-detail-chevron" id="ex-chev-mc">›</div>
-  </div>
-  <div class="ex-detail-body" id="ex-body-mc">
-    <ol class="ex-steps">
-      <li><div class="step-num">1</div><div>Position de pompe haute (bras tendus). Mains sous les épaules, corps aligné. Engage fort le gainage.</div></li>
-      <li><div class="step-num">2</div><div>Ramène le genou droit sous la poitrine rapidement, en gardant les hanches basses (même niveau que les épaules).</div></li>
-      <li><div class="step-num">3</div><div>Replace le pied droit en arrière et simultanément ramène le genou gauche. C'est un mouvement alterné et rapide — comme courir couché.</div></li>
-      <li><div class="step-num">4</div><div>20 reps = 10 par côté. Maintiens la vitesse tout en gardant les hanches basses et stables.</div></li>
-    </ol>
-    <div class="ex-blocks">
-      <div class="ex-block block-tip">
-        <div class="ex-block-title">✅ Bons gestes</div>
-        Hanches stables et basses (même niveau que les épaules)<br>Respiration rapide et rythmée<br>Regarder le sol devant soi (pas les pieds)
-      </div>
-      <div class="ex-block block-warn">
-        <div class="ex-block-title">❌ Erreurs fréquentes</div>
-        Fesses en l'air — les hanches montent à chaque genou<br>Mouvement trop lent (perd l'effet cardio)<br>Bras qui fléchissent (bras restent tendus)
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
->
-
-<!-- TAB 4: NUTRITION -->
-<div id="tab-nutrition" class="section">
-  <div class="section-header" style="margin-top:16px">
-    <h2>Plan Nutrition</h2>
-    <p>1 800 kcal/jour · ~700 kcal de déficit · -1 kg/semaine</p>
-  </div>
-
-  <div class="macro-grid">
-    <div class="macro"><div class="macro-val" style="color:var(--orange)">1 800</div><div class="macro-label">kcal / jour</div></div>
-    <div class="macro"><div class="macro-val" style="color:var(--blue)">160 g</div><div class="macro-label">protéines</div></div>
-    <div class="macro"><div class="macro-val" style="color:var(--green)">~1 kg</div><div class="macro-label">/ semaine</div></div>
-  </div>
-
-  <div class="meal-card">
-    <div class="meal-head"><span class="meal-name">☀️ Petit-déjeuner · après séance</span><span class="meal-kcal">~450 kcal · 40g protéines</span></div>
-    <div class="meal-items">
-      <strong>Option A</strong> : 3 œufs brouillés + 2 tranches pain complet + café noir<br>
-      <strong>Option B</strong> : 200g fromage blanc 0% + 50g flocons d'avoine + 1 banane<br>
-      <strong>Option C</strong> : 2 œufs + 150g jambon blanc + 1 yaourt nature
-    </div>
-  </div>
-  <div class="meal-card">
-    <div class="meal-head"><span class="meal-name">🌞 Déjeuner</span><span class="meal-kcal">~550 kcal · 50g protéines</span></div>
-    <div class="meal-items">
-      <strong>Option A</strong> : 150g blanc poulet + 200g légumes vapeur + 100g riz complet<br>
-      <strong>Option B</strong> : Salade thon + haricots verts + 1 œuf dur + vinaigrette légère<br>
-      <strong>Option C</strong> : 200g saumon + brocolis + patate douce (100g)
-    </div>
-  </div>
-  <div class="meal-card">
-    <div class="meal-head"><span class="meal-name">🍎 Collation 16h</span><span class="meal-kcal">~150 kcal · 20g protéines</span></div>
-    <div class="meal-items">1 yaourt grec 0% + 10 amandes &nbsp;·&nbsp; ou &nbsp;·&nbsp; fromage blanc + 1 fruit</div>
-  </div>
-  <div class="meal-card">
-    <div class="meal-head"><span class="meal-name">🌙 Dîner</span><span class="meal-kcal">~650 kcal · 50g protéines</span></div>
-    <div class="meal-items">
-      <strong>Option A</strong> : 200g bœuf haché 5% + légumes sautés + lentilles (100g)<br>
-      <strong>Option B</strong> : 200g cabillaud + ratatouille + quinoa (100g cuit)<br>
-      <strong>Option C</strong> : 3 œufs en omelette + champignons + fromage blanc
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:16px">
-    <div class="card-title">✅ Règles d'or</div>
-    <ul class="rules">
-      <li><span class="ic">🥩</span><div><strong>Protéines à chaque repas</strong> — préserve le muscle pendant le déficit</div></li>
-      <li><span class="ic">🥦</span><div><strong>Légumes à volonté</strong> — rassasiant, peu calorique</div></li>
-      <li><span class="ic">🍺</span><div><strong>Pas d'alcool en semaine</strong> — 1 verre = 150 kcal vides + coupe la récupération</div></li>
-      <li><span class="ic">💧</span><div><strong>2,5L d'eau par jour</strong> — réduit la faim, aide la récupération</div></li>
-      <li><span class="ic">🍕</span><div><strong>1 repas plaisir le dimanche midi</strong> — mange ce que tu veux, sans culpabilité</div></li>
-      <li><span class="ic">⚖️</span><div><strong>Se peser le lundi matin à jeun</strong> — après les toilettes, mêmes conditions chaque semaine</div></li>
-    </ul>
-  </div>
-
-  <div class="card" style="margin-top:12px">
-    <div class="card-title">❌ À éviter</div>
-    <div style="font-size:12px;color:var(--muted);line-height:1.8">
-      Pain blanc · Viennoiseries · Céréales sucrées<br>
-      Jus de fruits · Sodas (même light)<br>
-      Sauces industrielles (ketchup, mayo, vinaigrettes toutes faites)<br>
-      Grignotage non planifié
-    </div>
-  </div>
-</div>
-
-<!-- TAB 5: TRACKING -->
-<div id="tab-tracking" class="section">
-  <div class="section-header" style="margin-top:16px">
-    <h2>Suivi</h2>
-    <p>Coche les séances · Note ton poids chaque lundi matin</p>
-  </div>
-
-  <div id="weeks-container"></div>
-
-  <div class="card" style="margin-top:8px;background:#fffbeb;border-color:#fcd34d">
-    <div style="font-size:12px;line-height:1.7">
-      <strong>⚠️ La balance fluctue de ±1 kg d'un jour à l'autre</strong> (eau, digestion).<br>
-      Ce qui compte : la <strong>tendance sur 7 jours</strong>, pas le chiffre du matin.<br>
-      Si tu perds ~1 kg/semaine en moyenne → tu es sur le bon chemin.
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:12px">
-    <div class="card-title">💡 Règles d'or</div>
-    <ul class="rules">
-      <li><span class="ic">⏰</span><div>La séance du matin ne se négocie pas — mets ta tenue la veille au bord du lit</div></li>
-      <li><span class="ic">↩️</span><div>Si tu rates une séance → reprends juste le jour suivant, <strong>sans compenser double</strong></div></li>
-      <li><span class="ic">🦵</span><div>Chaque squat sauté = un kilomètre de trek en Norvège plus facile</div></li>
-      <li><span class="ic">🚑</span><div><strong>Courbatures = normal</strong> · Douleur articulaire = stop et repos</div></li>
-    </ul>
-  </div>
-</div>
-
-<script>
-function showTab(tab) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-  event.target.classList.add('active');
-}
-
-// Generate week cards
-const weeks = [
-  {n:'S1',dates:'14–20 avr',kg:'93 kg'},
-  {n:'S2',dates:'21–27 avr',kg:''},
-  {n:'S3',dates:'28 avr–4 mai',kg:''},
-  {n:'S4',dates:'5–11 mai',kg:''},
-  {n:'S5',dates:'12–18 mai',kg:''},
-  {n:'S6',dates:'19–25 mai',kg:''},
-  {n:'S7',dates:'26 mai–1 juin',kg:''},
-  {n:'S7,5',dates:'2–5 juin',kg:''},
-];
-const days = ['Lundi','Mardi','Mercredi','Vendredi','Samedi'];
-const container = document.getElementById('weeks-container');
-weeks.forEach((w,i) => {
-  const div = document.createElement('div');
-  div.className = 'week-card';
-  div.innerHTML = `
-    <div class="week-header">
-      <div>
-        <div class="week-num">Semaine ${w.n}</div>
-        <div class="week-dates">${w.dates}</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:11px;color:var(--muted)">Poids :</span>
-        <input class="weight-input" type="text" placeholder="${w.kg || '—  kg'}" value="${w.kg}">
-      </div>
-    </div>
-    <div class="check-row">
-      ${days.map(d => `<label class="chk"><input type="checkbox"> ${d}</label>`).join('')}
-    </div>
-    <div style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px">
-      Ressenti :
-      ${[1,2,3,4,5].map(n => `<label class="chk"><input type="radio" name="feel${i}" value="${n}"> ${n}</label>`).join('')}
-    </div>
-  `;
-  container.appendChild(div);
-});
-
-// Add final week
-const final = document.createElement('div');
-final.className = 'week-card final-week';
-final.innerHTML = `
-  <div class="week-header">
-    <div>
-      <div class="week-num">🇳🇴 DÉPART NORVÈGE</div>
-      <div class="week-dates">6 juin · Road trip en van</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px">
-      <span style="font-size:11px;color:#94a3b8">Poids :</span>
-      <input class="weight-input" type="text" placeholder="~85 kg" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff">
-    </div>
-  </div>
-  <div style="font-size:13px;color:#94a3b8;margin-top:4px">12 kg de matos photo sur le dos · Fjords · 3 semaines 📸</div>
-`;
-container.appendChild(final);
-</script>
+        weekData.forEach(w => {
+            const card = document.createElement('div');
+            card.className = "bg-white p-4 rounded-2xl border border-slate-200 shadow-sm";
+            card.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase">Semaine ${w.n}</span>
+                        <p class="text-[10px] text-slate-400 uppercase italic font-bold leading-none">${w.date}</p>
+                    </div>
+                    <input type="text" placeholder="${w.weight || 'Poids'}" class="w-20 text-right font-condensed font-bold text-lg border-b border-slate-200 focus:outline-none focus:border-norway-orange">
+                </div>
+                <div class="flex gap-2">
+                    ${['L','M','M','V','S'].map(d => `
+                        <label class="flex-1">
+                            <input type="checkbox" class="hidden peer">
+                            <div class="text-center py-2 rounded-lg bg-slate-50 text-[10px] font-bold text-slate-400 peer-checked:bg-norway-orange peer-checked:text-white transition-all cursor-pointer">
+                                ${d}
+                            </div>
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            trackContainer.appendChild(card);
+        });
+    </script>
 </body>
 </html>
